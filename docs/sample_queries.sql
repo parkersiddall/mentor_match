@@ -23,3 +23,15 @@ VALUES (
    TRUE,
    FALSE
 );
+
+-- create new question for match form
+INSERT INTO question (
+    match_form_id,
+    priority,
+    question_text
+)
+VALUES (
+   1,
+   1,
+   "Sample question 1"
+);

@@ -18,3 +18,16 @@ CREATE TABLE match_form (
     PRIMARY KEY(match_form_id)
 );
 
+-- table for questions in match forms
+CREATE TABLE question (
+    question_id INT NOT NULL AUTO_INCREMENT,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    match_form_id INT NOT NULL,
+    priority INT NOT NULL,
+    question_text TEXT NOT NULL,
+    PRIMARY KEY(question_id),
+    FOREIGN KEY(match_form_id)
+      REFERENCES match_form(match_form_id)
+      ON DELETE CASCADE
+);
+
