@@ -31,3 +31,14 @@ CREATE TABLE question (
       ON DELETE CASCADE
 );
 
+-- table for question options
+CREATE TABLE option (
+    option_id INT NOT NULL AUTO_INCREMENT,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    question_id INT NOT NULL,
+    option_text TEXT NOT NULL,
+    PRIMARY KEY(option_id),
+    FOREIGN KEY(question_id)
+        REFERENCES question(question_id)
+        ON DELETE CASCADE
+);

@@ -35,3 +35,13 @@ VALUES (
    1,
    "Sample question 1"
 );
+
+-- create new option for question
+INSERT INTO option (
+    question_id,
+    option_text
+)
+VALUES (
+   1,
+   "Sample option 1"
+);
