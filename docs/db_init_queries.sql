@@ -32,7 +32,7 @@ CREATE TABLE question (
 );
 
 -- table for question options
-CREATE TABLE option (
+CREATE TABLE question_option (
     option_id INT NOT NULL AUTO_INCREMENT,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     question_id INT NOT NULL,

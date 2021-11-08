@@ -45,3 +45,20 @@ VALUES (
    1,
    "Sample option 1"
 );
+
+-- select all questions for given match_form
+SELECT mf.match_form_id, q.question_id, q.question_text, q.priority
+FROM match_form mf
+         JOIN question q ON mf.match_form_id = q.match_form_id
+WHERE mf.match_form_id = 1
+ORDER BY q.priority;
+
+-- select all options for a given match_form
+SELECT mf.match_form_id, q.question_id, q.question_text, q.priority, o.option_text
+FROM match_form mf
+         JOIN question q ON mf.match_form_id = q.match_form_id
+         JOIN `option` o ON q.question_id = o.question_id
+WHERE mf.match_form_id = 1
+ORDER BY q.priority;
+
+
