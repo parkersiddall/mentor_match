@@ -56,7 +56,11 @@ $(document).ready(function() {
     $("#submit-button").click(function(event) {
         event.preventDefault()
         let formData = collectFormData()
-        console.log(formData)
+        $.post("/?page=add_new", formData,
+            function(data) {
+            console.log(data)
+            })
+        // TODO add spinner
     })
 
 

@@ -1,3 +1,29 @@
+<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        include_once "../db/pdo.php";
+        // TODO add server side form validation
+        $sql = "INSERT INTO match_form (title, mentor_desc, mentee_desc, mentor_app_open, mentee_app_open,
+                    collect_first_name, collect_last_name, collect_email, collect_phone, collect_stud_id
+                    ) VALUES (:title, :mentor_desc, :mentee_desc, :mentor_app_open, :mentee_app_open,
+                      :collect_first_name, :collect_last_name, :collect_email, :collect_phone, :collect_stud_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':title' => $_POST['title'],
+            ':mentor_desc' => $_POST['mentorDescription'],
+            ':mentee_desc' => $_POST['menteeDescription'],
+            ':mentor_app_open' => $_POST['mentorApplicationStatus'] === "true",
+            ':mentee_app_open' => $_POST['menteeApplicationStatus'] === "true",
+            ':collect_first_name' => $_POST['collectFirstName'] === "true",
+            ':collect_last_name' => $_POST['collectLastName'] === "true",
+            ':collect_email' => $_POST['collectEmail'] === "true",
+            ':collect_phone' => $_POST['collectPhone'] === "true",
+            ':collect_stud_id' => $_POST['collectStudentID'] === "true"
+        ));
+
+        die;
+    }
+?>
+
 <html>
 <head>
     <meta charset="UTF-8">
