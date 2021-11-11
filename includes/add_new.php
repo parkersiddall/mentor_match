@@ -1,48 +1,76 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         include_once '../db/pdo.php';
-        // TODO add server side form validation
-        $sql = "INSERT INTO match_form (title, mentor_desc, mentee_desc, mentor_app_open, mentee_app_open,
+        $response = Array();
+        try {
+            // server side validation
+            foreach ($_POST as $key => $value) {
+                if ($key === 'questions') {
+                    foreach($_POST['questions'] as $question) {
+                        if ($question['question'] === '') {
+                            throw new Exception("Questions cannot be blank.", 400);
+                        }
+                        foreach($question['options'] as $option) {
+                            if ($option === '') {
+                                throw new Exception("Question options cannot be blank.", 400);
+                            }
+                        }
+                    }
+                } else if ($_POST[$key] === ''){
+                    throw new Exception("$key cannot be blank.", 400);
+                }
+            }
+
+            // add to DB
+            $sql = "INSERT INTO match_form (title, mentor_desc, mentee_desc, mentor_app_open, mentee_app_open,
                     collect_first_name, collect_last_name, collect_email, collect_phone, collect_stud_id
                     ) VALUES (:title, :mentor_desc, :mentee_desc, :mentor_app_open, :mentee_app_open,
                       :collect_first_name, :collect_last_name, :collect_email, :collect_phone, :collect_stud_id)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute(array(
-            ':title' => $_POST['title'],
-            ':mentor_desc' => $_POST['mentorDescription'],
-            ':mentee_desc' => $_POST['menteeDescription'],
-            ':mentor_app_open' => $_POST['mentorApplicationStatus'] === 'true',
-            ':mentee_app_open' => $_POST['menteeApplicationStatus'] === 'true',
-            ':collect_first_name' => $_POST['collectFirstName'] === 'true',
-            ':collect_last_name' => $_POST['collectLastName'] === 'true',
-            ':collect_email' => $_POST['collectEmail'] === 'true',
-            ':collect_phone' => $_POST['collectPhone'] === 'true',
-            ':collect_stud_id' => $_POST['collectStudentID'] === 'true'
-        ));
-        $match_form_id = $pdo->lastInsertId();
-
-        // loop through questions and options save to db
-        foreach($_POST['questions'] as $question) {
-            $sql = "INSERT INTO question (match_form_id, priority, question_text) VALUES ( :match_form_id, :priority, :question_text);";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(
-                ':match_form_id' => $match_form_id,
-                ':priority' => $question['priority'],
-                ':question_text' => $question['question']
+                ':title' => $_POST['title'],
+                ':mentor_desc' => $_POST['mentorDescription'],
+                ':mentee_desc' => $_POST['menteeDescription'],
+                ':mentor_app_open' => $_POST['mentorApplicationStatus'] === 'true',
+                ':mentee_app_open' => $_POST['menteeApplicationStatus'] === 'true',
+                ':collect_first_name' => $_POST['collectFirstName'] === 'true',
+                ':collect_last_name' => $_POST['collectLastName'] === 'true',
+                ':collect_email' => $_POST['collectEmail'] === 'true',
+                ':collect_phone' => $_POST['collectPhone'] === 'true',
+                ':collect_stud_id' => $_POST['collectStudentID'] === 'true'
             ));
-            $question_id = $pdo->lastInsertId();
+            $match_form_id = $pdo->lastInsertId();
 
-            foreach($question['options'] as $option) {
-                $sql = "INSERT INTO question_option (question_id, option_text) VALUES ( :question_id, :option_text);";
+            // loop through questions and options save to db
+            foreach($_POST['questions'] as $question) {
+                $sql = "INSERT INTO question (match_form_id, priority, question_text) VALUES ( :match_form_id, :priority, :question_text);";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array(
-                    ':question_id' => $question_id,
-                    ':option_text' => $option
+                    ':match_form_id' => $match_form_id,
+                    ':priority' => $question['priority'],
+                    ':question_text' => $question['question']
                 ));
+                $question_id = $pdo->lastInsertId();
+
+                foreach($question['options'] as $option) {
+                    $sql = "INSERT INTO question_option (question_id, option_text) VALUES ( :question_id, :option_text);";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(
+                        ':question_id' => $question_id,
+                        ':option_text' => $option
+                    ));
+                }
             }
+
+            http_response_code(200);
+            $response['message'] = 'Data loaded to DB.';
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            $response['message'] = $e->getMessage();
         }
 
         // send response to browser
+        echo json_encode($response);
         die;
     }
 ?>

@@ -55,12 +55,17 @@ $(document).ready(function() {
     // handle submit button
     $("#submit-button").click(function(event) {
         event.preventDefault()
+        // TODO add spinner
         let formData = collectFormData()
         $.post("/?page=add_new", formData,
-            function(data) {
-            console.log(data)
+            function(response) {
+                window.location.href = "/"
             })
-        // TODO add spinner
+            .fail(function(response) {
+                // show popup with error message
+                console.log(response.responseText)
+                window.alert(JSON.parse(response.responseText).message)
+            })
     })
 
 
