@@ -2,6 +2,7 @@ CREATE DATABASE mentor_match DEFAULT CHARACTER	SET utf8;
 USE mentor_match;
 
 -- table for match forms
+-- TODO create a uuid of 24 random ASCI chars. Set as index. To be used for public form urls
 CREATE TABLE match_form (
     match_form_id INT NOT NULL AUTO_INCREMENT,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
