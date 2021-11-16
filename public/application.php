@@ -1,6 +1,12 @@
 <?php
     include_once "../db/pdo.php";
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        http_response_code(200);
+        echo "it works";
+        die;
+    }
+
     if (!isset($_GET['id']) || !isset($_GET['m_type'])) {
         include "404.html";
         die;
@@ -69,7 +75,8 @@
             src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
-    <title>Document</title>
+    <script src="/assets/application.js"></script>
+    <title>Mentor Match Application</title>
 </head>
 <body>
     <div class="container mt-3 text center">
@@ -82,7 +89,8 @@
             ?>
         </p>
         <br>
-        <form action="">
+        <form id="app-form">
+            <input id="m_type" value="<?php echo $_GET['m_type']?>" style="display: none"></input>
             <?php
                 if($form_data[0]['collect_first_name']) {
                     echo '<div class="mb-3">';
@@ -126,6 +134,8 @@
                     echo '</div>';
                 }
             ?>
+            <br>
+            <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </div>
 

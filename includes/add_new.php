@@ -28,9 +28,9 @@
                       :collect_first_name, :collect_last_name, :collect_email, :collect_phone, :collect_stud_id)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(
-                ':title' => $_POST['title'],
-                ':mentor_desc' => $_POST['mentorDescription'],
-                ':mentee_desc' => $_POST['menteeDescription'],
+                ':title' => htmlentities($_POST['title']),
+                ':mentor_desc' => htmlentities($_POST['mentorDescription']),
+                ':mentee_desc' => htmlentities($_POST['menteeDescription']),
                 ':mentor_app_open' => $_POST['mentorApplicationStatus'] === 'true',
                 ':mentee_app_open' => $_POST['menteeApplicationStatus'] === 'true',
                 ':collect_first_name' => $_POST['collectFirstName'] === 'true',
@@ -46,9 +46,9 @@
                 $sql = "INSERT INTO question (match_form_id, priority, question_text) VALUES ( :match_form_id, :priority, :question_text);";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array(
-                    ':match_form_id' => $match_form_id,
-                    ':priority' => $question['priority'],
-                    ':question_text' => $question['question']
+                    ':match_form_id' => htmlentities($match_form_id),
+                    ':priority' => htmlentities($question['priority']),
+                    ':question_text' => htmlentities($question['question'])
                 ));
                 $question_id = $pdo->lastInsertId();
 
@@ -56,8 +56,8 @@
                     $sql = "INSERT INTO question_option (question_id, option_text) VALUES ( :question_id, :option_text);";
                     $stmt = $pdo->prepare($sql);
                     $stmt->execute(array(
-                        ':question_id' => $question_id,
-                        ':option_text' => $option
+                        ':question_id' => htmlentities($question_id),
+                        ':option_text' => htmlentities($option)
                     ));
                 }
             }

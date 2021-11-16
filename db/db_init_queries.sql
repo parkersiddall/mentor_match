@@ -43,3 +43,39 @@ CREATE TABLE question_option (
         REFERENCES question(question_id)
         ON DELETE CASCADE
 );
+
+-- table for applications
+CREATE TABLE application (
+     application_id INT NOT NULL AUTO_INCREMENT,
+     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+     match_form_id INT NOT NULL,
+     m_type TEXT NOT NULL,
+     first_name TEXT NOT NULL,
+     last_name TEXT NOT NULL,
+     email TEXT NOT NULL,
+     phone TEXT NOT NULL,
+     stud_id TEXT NOT NULL,
+     PRIMARY KEY(application_id),
+     FOREIGN KEY(match_form_id)
+         REFERENCES match_form(match_form_id)
+         ON DELETE CASCADE
+);
+
+-- table for application questions and response
+CREATE TABLE question_response (
+    question_response_id INT NOT NULL AUTO_INCREMENT,
+    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    application_id INT NOT NULL,
+    question_id INT NOT NULL,
+    option_id INT NOT NULL,
+    PRIMARY KEY(question_response_id),
+    FOREIGN KEY(application_id)
+       REFERENCES application(application_id)
+       ON DELETE CASCADE,
+    FOREIGN KEY(question_id)
+       REFERENCES question(question_id)
+       ON DELETE CASCADE,
+    FOREIGN KEY(option_id)
+       REFERENCES question_option(option_id)
+       ON DELETE CASCADE
+);
