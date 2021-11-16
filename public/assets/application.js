@@ -3,8 +3,8 @@ $(document).ready(function() {
 
     $("#app-form").submit(function(event) {
         event.preventDefault()
-        let response = create_response()
-        $.post("/application.php", response,
+        let formData = create_response()
+        $.post("/application.php", formData,
             function(response) {
                 // show success message
                 console.log(response)
@@ -19,12 +19,14 @@ $(document).ready(function() {
     // helper functions
     const create_response = function () {
         let response = {}
-        response.m_type = $("#m_type").val()
-        response.firstName = $("#firstName").val()
-        response.lastName = $("#lastName").val()
+        // TODO add in match form id
+        response.matchFormId = $("#match-form-id").val()
+        response.mType = $("#m-type").val()
+        response.firstName = $("#first-name").val()
+        response.lastName = $("#last-name").val()
         response.email = $("#email").val()
         response.phone = $("#phone").val()
-        response.studentId = $("#studentId").val()
+        response.studentId = $("#student-id").val()
         response.questions = []
 
         let questions = $(".question")
@@ -34,6 +36,7 @@ $(document).ready(function() {
             question.optionId = $(questions[i]).val()
             response.questions.push(question)
         }
-        console.log(response)
+
+        return response
     }
 })

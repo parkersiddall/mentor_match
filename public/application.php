@@ -2,11 +2,63 @@
     include_once "../db/pdo.php";
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        http_response_code(200);
-        echo "it works";
+        // validate responses
+        $response = Array();
+        try {
+            // TODO: validate that email includes @
+            foreach ($_POST as $key => $value) {
+                if ($key === 'questions') {
+                    foreach($_POST['questions'] as $question) {
+                        if ($question['questionId'] === '' || $question['optionId'] === '') {
+                            throw new Exception("Responses are blank.", 400);
+                        }
+                    }
+                } else if ($value === ''){
+                    throw new Exception("$key cannot be blank.", 400);
+                }
+            }
+
+            // add to DB
+            $sql = "INSERT INTO application (match_form_id, m_type, first_name, last_name, email, phone,
+                        stud_id) VALUES (:match_form_id, :m_type, :first_name, :last_name,
+                        :email, :phone, :stud_id)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':match_form_id' => htmlentities($_POST['matchFormId']),
+                ':m_type' => htmlentities($_POST['mType']),
+                ':first_name' => isset($_POST['firstName']) ? htmlentities($_POST['firstName']) : null,
+                ':last_name' => isset($_POST['lastName']) ? htmlentities($_POST['lastName']) : null,
+                ':email' => isset($_POST['email']) ? htmlentities($_POST['email']) : null,
+                ':phone' => isset($_POST['phone']) ? htmlentities($_POST['phone']) : null,
+                ':stud_id' => isset($_POST['studentId']) ? htmlentities($_POST['studentId']) : null
+            ));
+            $application_id = $pdo->lastInsertId();
+
+            // TODO: loop through questions
+            foreach($_POST['questions'] as $question) {
+                $sql = "INSERT INTO question_response (application_id, question_id, option_id) 
+                        VALUES ( :application_id, :question_id, :option_id);";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':application_id' => $application_id,
+                    ':question_id' => htmlentities($question['questionId']),
+                    ':option_id' => htmlentities($question['optionId'])
+                ));
+            }
+
+            http_response_code(200);
+            $response['message'] = "Application saved successfully!";
+
+        } catch (Exception $e) {
+            http_response_code($e->getCode());
+            $response['message'] = $e->getMessage();
+        }
+
+        echo json_encode($response);
         die;
     }
 
+    // else if GET method
     if (!isset($_GET['id']) || !isset($_GET['m_type'])) {
         include "404.html";
         die;
@@ -90,18 +142,19 @@
         </p>
         <br>
         <form id="app-form">
-            <input id="m_type" value="<?php echo $_GET['m_type']?>" style="display: none"></input>
+            <input id="match-form-id" value="<?php echo $_GET['id']?>" style="display: none"></input>
+            <input id="m-type" value="<?php echo $_GET['m_type']?>" style="display: none"></input>
             <?php
                 if($form_data[0]['collect_first_name']) {
                     echo '<div class="mb-3">';
-                    echo '<label for="firstName" class="form-label">First Name</label>';
-                    echo '<input type="text" class="form-control" id="firstName">';
+                    echo '<label for="first-name" class="form-label">First Name</label>';
+                    echo '<input type="text" class="form-control" id="first-name">';
                     echo '</div>';
                 }
                 if($form_data[0]['collect_last_name']) {
                     echo '<div class="mb-3">';
-                    echo '<label for="lastName" class="form-label">Last Name</label>';
-                    echo '<input type="text" class="form-control" id="lastName">';
+                    echo '<label for="last-name" class="form-label">Last Name</label>';
+                    echo '<input type="text" class="form-control" id="last-name">';
                     echo '</div>';
                 }
                 if($form_data[0]['collect_email']) {
@@ -118,14 +171,14 @@
                 }
                 if($form_data[0]['collect_stud_id']) {
                     echo '<div class="mb-3">';
-                    echo '<label for="studentId" class="form-label">Student Id</label>';
-                    echo '<input type="text" class="form-control" id="studentId">';
+                    echo '<label for="student-id" class="form-label">Student Id</label>';
+                    echo '<input type="text" class="form-control" id="student-id">';
                     echo '</div>';
                 }
 
                 foreach($form_questions as $question) {
                     echo '<div class="mb-3">';
-                    echo "<label for='studentId' class='form-label'>{$question['question_text']}</label>";
+                    echo "<label for='{$question['question_id']}' class='form-label'>{$question['question_text']}</label>";
                     echo "<select type='text' class='form-select question' id='{$question['question_id']}'>";
                     foreach($question['options'] as $option) {
                         echo "<option class='option' value='{$option['option_id']}'>{$option['option_text']}</option>";

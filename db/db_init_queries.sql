@@ -50,11 +50,11 @@ CREATE TABLE application (
      date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
      match_form_id INT NOT NULL,
      m_type TEXT NOT NULL,
-     first_name TEXT NOT NULL,
-     last_name TEXT NOT NULL,
-     email TEXT NOT NULL,
-     phone TEXT NOT NULL,
-     stud_id TEXT NOT NULL,
+     first_name TEXT,
+     last_name TEXT,
+     email TEXT,
+     phone TEXT,
+     stud_id TEXT,
      PRIMARY KEY(application_id),
      FOREIGN KEY(match_form_id)
          REFERENCES match_form(match_form_id)
