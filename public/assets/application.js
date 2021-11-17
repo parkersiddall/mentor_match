@@ -8,6 +8,9 @@ $(document).ready(function() {
             function(response) {
                 // show success message
                 console.log(response)
+                $("#app-form").hide()
+                $("#success-message").show()
+
             })
             .fail(function(response) {
                 // show popup with error message

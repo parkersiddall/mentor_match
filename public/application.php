@@ -34,7 +34,6 @@
             ));
             $application_id = $pdo->lastInsertId();
 
-            // TODO: loop through questions
             foreach($_POST['questions'] as $question) {
                 $sql = "INSERT INTO question_response (application_id, question_id, option_id) 
                         VALUES ( :application_id, :question_id, :option_id);";
@@ -131,7 +130,7 @@
     <title>Mentor Match Application</title>
 </head>
 <body>
-    <div class="container mt-3 text center">
+    <div id="form" class="container mt-3 text center">
         <h2>
             <?php echo ($form_data[0]['title']);?>
         </h2>
@@ -190,6 +189,10 @@
             <br>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
+    </div>
+    <div id="success-message" class="container h-100" style="display:none;">
+        <h3>Success!</h3>
+        <p>You've successfully submitted your application. Once the matching has been completed, you will receive information about your mentor/mentee from your university.</p>
     </div>
 
 </body>
