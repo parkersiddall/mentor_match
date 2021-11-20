@@ -57,8 +57,8 @@
                 echo '</svg>';
                 echo '</button>';
                 echo '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
-                echo '<li><a class="dropdown-item" href="#">Action</a></li>';
-                echo '<li><a class="dropdown-item" href="#">Another action</a></li>';
+                echo "<li><a class='dropdown-item' href='/?page=view_applicants&id={$row['match_form_id']}'>View Applicants</a></li>";
+                echo '<li><a class="dropdown-item" href="https://www.google.com">Another action</a></li>';
                 echo '<li><a class="dropdown-item" href="#">Something else here</a></li>';
                 echo '</ul>';
                 echo '</div>';
