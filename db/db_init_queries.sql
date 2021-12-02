@@ -55,6 +55,7 @@ CREATE TABLE application (
      email TEXT,
      phone TEXT,
      stud_id TEXT,
+     num_matches INT NOT NULL DEFAULT 0,
      PRIMARY KEY(application_id),
      FOREIGN KEY(match_form_id)
          REFERENCES match_form(match_form_id)

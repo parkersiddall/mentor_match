@@ -1,0 +1,27 @@
+Algorithm for matching unpaired mentees with mentors who have a total number of matches that is lower than the ideal mentee/mentor ratio
+Essentially the process loops through the mentees and mentors. As the iteration progresses the matching standards are lowered
+Matching standards start high (X/X match), then once all matches are made the iteration lowers the standards by 1 (X-1/X)
+This ensures all mentees are paired with the best-fit mentor before a less perfect match is made.
+
+set ideal ratio
+matching parameters (number of questions for the match form), also used for validating keys
+set unmatched mentors (add their responses to each app form)
+set unmatched mentees (add their responses to each app form)
+
+i = length of matching params; i >= 0; i--
+    for each mentee:
+        for each mentor:
+            if # mentor matches too high
+                break
+
+            $match_points = 0
+
+            for each key in matching params:
+                if mentor[key] == mentee[key]:
+                    $match_points ++
+
+            if $match_points == i:
+                make_match()
+                break
+
+
