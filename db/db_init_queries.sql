@@ -80,3 +80,22 @@ CREATE TABLE question_response (
        REFERENCES question_option(option_id)
        ON DELETE CASCADE
 );
+
+-- table for matches
+CREATE TABLE match_pair (
+   match_id INT NOT NULL AUTO_INCREMENT,
+   date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   match_form_id INT NOT NULL,
+   mentor_application_id INT NOT NULL,
+   mentee_application_id INT NOT NULL,
+   PRIMARY KEY(match_id),
+   FOREIGN KEY(match_form_id)
+       REFERENCES match_form(match_form_id)
+       ON DELETE CASCADE,
+   FOREIGN KEY(mentor_application_id)
+       REFERENCES application(application_id)
+       ON DELETE CASCADE,
+   FOREIGN KEY(mentee_application_id)
+       REFERENCES application(application_id)
+       ON DELETE CASCADE
+);
