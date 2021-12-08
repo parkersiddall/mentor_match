@@ -12,7 +12,7 @@
             require_once "../includes/view_applicants.php";
             break;
         case "make_matches":
-            require_once "../includes/utilities/make_matches.php";
+            require_once "../includes/make_matches.php";
             break;
         default:
             require_once "../includes/home.php";

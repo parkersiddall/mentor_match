@@ -37,6 +37,17 @@
     ));
     $last_app = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // get matches
+    $sql = "SELECT mp.match_id, mp.date_created, mp.confidence_rate, a.application_id AS 'mentee_application_id', a2.application_id AS 'mentor_application_id'
+            FROM match_pair mp
+            JOIN application a ON mp.mentee_application_id = a.application_id
+            JOIN application a2 ON mp.mentor_application_id = a2.application_id
+            WHERE mp.match_form_id = :id";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array(
+        ':id' => $_GET['id']
+    ));
+    $matches_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -73,7 +84,7 @@
                         Dropdown button
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="<?php echo '?page=make_matches&id='.$_GET['id']?>">Make Matches</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
@@ -111,6 +122,9 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="mentee-tab-button" data-bs-toggle="pill" data-bs-target="#mentee-tab-content" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Mentees</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="matches-tab-button" data-bs-toggle="pill" data-bs-target="#matches-tab-content" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Matches</button>
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
@@ -219,6 +233,34 @@
                                     echo "<td>{$mentee['stud_id']}</td>";
                                 }
 
+                                echo '</tr>';
+                            }
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" id="matches-tab-content" role="tabpanel" aria-labelledby="matches-tab-button">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Match ID</th>
+                                <th scope="col">Date Matched</th>
+                                <th scope="col">Confidence Rate</th>
+                                <th scope="col">Mentee Application ID</th>
+                                <th scope="col">Mentor Application ID</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            foreach($matches_data as $match) {
+                                echo '<tr>';
+                                echo "<td>{$match['match_id']}</td>";
+                                echo "<td>{$match['date_created']}</td>";
+                                echo "<td>".round($match['confidence_rate'] * 100 ).'%'."</td>";
+                                echo "<td>{$match['mentee_application_id']}</td>";
+                                echo "<td>{$match['mentor_application_id']}</td>";
                                 echo '</tr>';
                             }
                             ?>

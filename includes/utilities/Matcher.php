@@ -177,6 +177,8 @@
                 ':mentor_application_id' => $mentor_id,
                 ':confidence' => $confidence
             ));
+
+            //TODO: update num_matches in applicant table
             $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
