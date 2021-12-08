@@ -10,9 +10,13 @@ set unmatched mentees (add their responses to each app form)
 
 i = length of matching params; i >= 0; i--
     for each mentee:
+        if # of matches more than one:
+            continue
+
         for each mentor:
             if # mentor matches too high
-                break
+                remove mentor from mentors list
+                continue
 
             $match_points = 0
 
@@ -22,6 +26,7 @@ i = length of matching params; i >= 0; i--
 
             if $match_points == i:
                 make_match()
+                remove mentee from open mentees list
                 break
 
 

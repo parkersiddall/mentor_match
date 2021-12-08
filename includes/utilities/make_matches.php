@@ -7,21 +7,18 @@
         die;
     }
 
-    $matcher = new matcher(24, $pdo);
-    $matcher->set_ratio();
-    $matcher->set_matching_params();
-    $matcher->set_open_applications();
+    try {
+        $matcher = new matcher(24, $pdo);
+        $matcher->match_open_mentees();
+        header("Location: localhost?page=view_applicants&id=24");
+        die;
+    } catch (Exception $e) {
+        // TODO: return error page
+        include "404.html";
+    }
 
-    foreach($matcher->open_mentees as $param) {
-        foreach($param as $foo => $item){
-            print_r($foo);
-            print_r($item);
-        }
-    }
-    echo "<br>";
-    foreach($matcher->open_mentors as $param) {
-        foreach($param as $foo => $item){
-            print_r($foo);
-            print_r($item);
-        }
-    }
+
+
+
+
+

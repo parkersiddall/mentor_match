@@ -88,6 +88,7 @@ CREATE TABLE match_pair (
    match_form_id INT NOT NULL,
    mentor_application_id INT NOT NULL,
    mentee_application_id INT NOT NULL,
+   confidence_rate FLOAT NOT NULL,
    PRIMARY KEY(match_id),
    FOREIGN KEY(match_form_id)
        REFERENCES match_form(match_form_id)
