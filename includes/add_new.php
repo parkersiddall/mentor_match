@@ -112,15 +112,15 @@
             <textarea class="form-control" id="mentee-description" cols="30" rows="3" required></textarea>
             <br>
             <label for="mentor-application-status" class="form-label">Mentor Application Status</label>
-            <select class="form-select" id="mentor-application-status" aria-label="Mentor Application Status">
-                <option value="open">Open</option>
-                <option value="closed" selected>Closed</option>
+            <select class="form-select" id="mentor-application-status" aria-label="Mentor Application Status" disabled>
+                <option value="open" selected>Open</option>
+                <option value="closed">Closed</option>
             </select>
             <br>
             <label for="mentee-application-status" class="form-label">Mentee Application Status</label>
-            <select class="form-select" id="mentee-application-status" aria-label="Mentee Application Status">
-                <option value="open">Open</option>
-                <option value="closed" selected>Closed</option>
+            <select class="form-select" id="mentee-application-status" aria-label="Mentee Application Status" disabled>
+                <option value="open" selected>Open</option>
+                <option value="closed">Closed</option>
             </select>
             <br>
             <div class="form-check form-switch">
@@ -128,7 +128,7 @@
                 <label class="form-check-label" for="collect-first-name">Ask for first name</label>
             </div>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="collect-last-name" checked>
+                <input class="form-check-input" type="checkbox" id="collect-last-name" checked disabled>
                 <label class="form-check-label" for="collect-last-name">Ask for last name</label>
             </div>
             <div class="form-check form-switch">
