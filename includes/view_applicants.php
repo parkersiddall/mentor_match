@@ -1,10 +1,30 @@
 <?php
     include '../db/pdo.php';
-
     if (!isset($_GET['id'])) {
         include '404.html';
         die;
     }
+
+    // if method is POST
+        // check for id
+        // check for action
+        // switch for action type
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $action = isset($_POST['action']) ? $_POST['action'] : "";
+
+        switch($action) {
+            case "make_matches":
+                require_once "../includes/make_matches.php";
+                die;
+            default:
+                echo json_encode("Bad Request");
+                die;
+                // send back error json
+        };
+    }
+
+    // else if method is GET, do what is below
 
     // collect info from database
     // match form data
@@ -70,9 +90,12 @@
             src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
             crossorigin="anonymous"></script>
+    <script src="./assets/view_applicants.js"></script>
     <title>Match Form Overview</title>
 </head>
 <body>
+    <!--hidden elements to access data from JavaScript-->
+    <input id="match-form-id" type="text" hidden value="<?php echo $_GET['id']?>">
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Mentor Match</span>
@@ -85,15 +108,23 @@
                 <small><?php echo $match_form_data[0]['date_created']?></small>
             </div>
             <div class="col-6 text-end">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="<?php echo '?page=make_matches&id='.$_GET['id']?>">Make Matches</a></li>
-                        <li><a class="dropdown-item" href="#"  data-bs-toggle="modal" data-bs-target="#distributionModal">Distribution</a></li>
-                    </ul>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="/" role="button" class="btn btn-outline-secondary py-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-return-left pt-1" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z"/>
+                        </svg>
+                    </a>
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li id="make-matches" ><a class="dropdown-item" href="#">Make Matches</a></li>
+                            <li><a class="dropdown-item" href="#"  data-bs-toggle="modal" data-bs-target="#distributionModal">Distribution</a></li>
+                        </ul>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="row justify-content-center py-3">
