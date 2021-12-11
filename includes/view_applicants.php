@@ -38,7 +38,9 @@
     $last_app = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // get matches
-    $sql = "SELECT mp.match_id, mp.date_created, mp.confidence_rate, a.application_id AS 'mentee_application_id', a2.application_id AS 'mentor_application_id'
+    $sql = "SELECT mp.match_id, mp.date_created, mp.confidence_rate, a.application_id AS 'mentee_application_id',
+            a.first_name AS 'mentee_first_name', a.last_name AS 'mentee_last_name', a.email AS 'mentee_email',
+            a2.application_id AS 'mentor_application_id', a2.first_name AS 'mentor_first_name', a2.last_name AS 'mentor_last_name', a2.email AS 'mentor_email'
             FROM match_pair mp
             JOIN application a ON mp.mentee_application_id = a.application_id
             JOIN application a2 ON mp.mentor_application_id = a2.application_id
@@ -244,7 +246,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade show" id="matches-tab-content" role="tabpanel" aria-labelledby="matches-tab-button">
-                    <div class="table-responsive">
+                    <div class="table-responsive-xxl">
                         <table class="table">
                             <thead>
                             <tr>
@@ -252,7 +254,13 @@
                                 <th scope="col">Date Matched</th>
                                 <th scope="col">Confidence Rate</th>
                                 <th scope="col">Mentee Application ID</th>
+                                <th scope="col">Mentee First Name</th>
+                                <th scope="col">Mentee Last Name</th>
+                                <th scope="col">Mentee Email</th>
                                 <th scope="col">Mentor Application ID</th>
+                                <th scope="col">Mentor First Name</th>
+                                <th scope="col">Mentor Last Name</th>
+                                <th scope="col">Mentor Email</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -263,7 +271,13 @@
                                 echo "<td>{$match['date_created']}</td>";
                                 echo "<td>".round($match['confidence_rate'] * 100 ).'%'."</td>";
                                 echo "<td>{$match['mentee_application_id']}</td>";
+                                echo "<td>{$match['mentee_first_name']}</td>";
+                                echo "<td>{$match['mentee_last_name']}</td>";
+                                echo "<td>{$match['mentee_email']}</td>";
                                 echo "<td>{$match['mentor_application_id']}</td>";
+                                echo "<td>{$match['mentor_first_name']}</td>";
+                                echo "<td>{$match['mentor_last_name']}</td>";
+                                echo "<td>{$match['mentor_email']}</td>";
                                 echo '</tr>';
                             }
                             ?>
