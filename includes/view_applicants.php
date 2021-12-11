@@ -48,6 +48,10 @@
         ':id' => $_GET['id']
     ));
     $matches_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // construct base url for distribution links
+    $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+    $base_url = $protocol.$_SERVER['SERVER_NAME']."/application.php/?id=".$_GET['id']."&m_type=";
 ?>
 
 
@@ -85,8 +89,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="<?php echo '?page=make_matches&id='.$_GET['id']?>">Make Matches</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="#"  data-bs-toggle="modal" data-bs-target="#distributionModal">Distribution</a></li>
                     </ul>
                 </div>
             </div>
@@ -266,6 +269,35 @@
                             ?>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="distributionModal" tabindex="-1" aria-labelledby="distributionModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Distribution</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Application Links</h5>
+                        <p>Distribute these links to those who need to apply.</p>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Mentor Application</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php echo $base_url."mentor"?>" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Mentee Application</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php echo $base_url."mentee"?>" disabled>
+                        </div>
+                        <br>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,12 @@
     try {
         $matcher = new matcher($_GET['id'], $pdo);
         $matcher->match_open_mentees();
-        header("Location: localhost?page=view_applicants&id=".$_GET['id']);
+
+        // construct base url for redirect
+        $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
+        $base_url = $protocol.$_SERVER['SERVER_NAME']."/?page=view_applicants&id=";
+
+        header("Location:".$base_url.$_GET['id']);
         die;
     } catch (Exception $e) {
         // TODO: return error page
