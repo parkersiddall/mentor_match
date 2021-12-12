@@ -294,7 +294,7 @@
                                 <th scope="col">Mentor Email</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="match-data">
                             <?php
                             foreach($matches_data as $match) {
                                 echo '<tr>';

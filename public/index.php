@@ -11,9 +11,6 @@
         case "view_applicants":
             require_once "../includes/view_applicants.php";
             break;
-        case "make_matches":
-            require_once "../includes/make_matches.php";
-            break;
         default:
             require_once "../includes/home.php";
             break;
