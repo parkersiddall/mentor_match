@@ -1,9 +1,9 @@
 $(document).ready(function() {
     console.log("Ready")
+    let id = $("#match-form-id").val()
 
     // services
     $("#make-matches").click(function(event) {
-        let id = $("#match-form-id").val()
         let formData = {
             "action" : "make_matches"
         }
@@ -18,7 +18,7 @@ $(document).ready(function() {
                         <tr>
                             <td>${responseJSON[match]['match_id']}</td>
                             <td>${responseJSON[match]['date_created']}</td>
-                            <td>${Math.round(responseJSON[match]['confidence_rate']) * 100}%</td>
+                            <td>${Math.round(responseJSON[match]['confidence_rate'] * 100)}%</td>
                             <td>${responseJSON[match]['mentee_application_id']}</td>
                             <td>${responseJSON[match]['mentee_first_name']}</td>
                             <td>${responseJSON[match]['mentee_last_name']}</td>
@@ -31,16 +31,32 @@ $(document).ready(function() {
                     `
                     receivedData += row
                 })
-                console.log(receivedData)
                 $('#match-data').html(receivedData)
+            })
+            .fail(function(response) {
+                // show popup with error message
+                window.alert(JSON.parse(response.responseText).message)
+            })
+    })
+
+    $("#delete-match-form").click(function(event) {
+        confirmDelete = confirm("Are you sure you wish to delete this match form? All data will be lost.")
+        if(confirmDelete == true) {
+            let formData = {
+                "action" : "delete_match_form"
+            }
+            $.post(`/?page=view_applicants&id=${id}`, formData,
+                function (response) {
+                    // TODO: show success notification
+                    window.location.href = "/"
             })
             .fail(function(response) {
                 // show popup with error message
                 console.log(response.responseText)
                 window.alert(JSON.parse(response.responseText).message)
             })
+        }
     })
-
 
     // helper functions
     const create_response = function () {

@@ -17,6 +17,9 @@
             case "make_matches":
                 require_once "../includes/make_matches.php";
                 die;
+            case "delete_match_form":
+                require_once "../includes/delete_match_form.php";
+                die;
             default:
                 echo json_encode("Bad Request");
                 die;
@@ -121,6 +124,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li id="make-matches" ><a class="dropdown-item" href="#">Make Matches</a></li>
                             <li><a class="dropdown-item" href="#"  data-bs-toggle="modal" data-bs-target="#distributionModal">Distribution</a></li>
+                            <li id="delete-match-form" ><a class="dropdown-item" href="#">Delete Match Form</a></li>
                         </ul>
                     </div>
                 </div>
