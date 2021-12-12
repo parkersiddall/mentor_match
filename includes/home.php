@@ -17,11 +17,7 @@
     <title>Mentor Match</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Mentor Match</span>
-    </div>
-</nav>
+    <?php include "components/navbar.php" ?>
 <div id="form" class="container mt-3 text center">
     <div class="row">
         <div class="col-6">

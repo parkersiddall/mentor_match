@@ -99,11 +99,7 @@
 <body>
     <!--hidden elements to access data from JavaScript-->
     <input id="match-form-id" type="text" hidden value="<?php echo $_GET['id']?>">
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Mentor Match</span>
-        </div>
-    </nav>
+    <?php include "components/navbar.php" ?>
     <div id="form" class="container mt-3 text center">
         <div class="row">
             <div class="col-6">
@@ -145,7 +141,7 @@
             </div>
             <div class="col-2 text-center my-auto">
                 <h5>
-                <?php echo(count($mentee_data) && count($mentor_data)? count($mentee_data) / count($mentor_data).'/1' : 'N/A')?>
+                <?php echo(count($mentee_data) && count($mentor_data)? ceil(count($mentee_data)/ count($mentor_data)).'/1' : 'N/A')?>
                 </h5>
                 <small>Mentee/Mentor Ratio</small>
             </div>

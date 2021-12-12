@@ -130,6 +130,7 @@
     <title>Mentor Match Application</title>
 </head>
 <body>
+    <?php include "../includes/components/navbar.php" ?>
     <div id="form" class="container mt-3 text center">
         <h2>
             <?php echo ($form_data[0]['title']);?>
