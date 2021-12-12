@@ -22,48 +22,42 @@
         <span class="navbar-brand mb-0 h1">Mentor Match</span>
     </div>
 </nav>
-<div class="container">
-    <div class="row py-3">
-        <div class="d-flex py-2 justify-content-between">
-            <h5>My Matches</h5>
-            <a href="?page=add_new" class="btn btn-success">
-                Create New
-            </a>
+<div id="form" class="container mt-3 text center">
+    <div class="row">
+        <div class="col-6">
+            <h4>My Projects</h4>
+        </div>
+        <div class="col-6 text-end">
+                <a href="?page=add_new" class="btn btn-success">
+                    Create New
+                </a>
         </div>
     </div>
-
-
+</div>
+<div class="container py-3">
 
         <?php
             foreach($rows as $row) {
-                echo '<div class="row py-3 mb-1" style="border-radius: 4px; border: 1px solid rgba(0, 0, 0, 0.125)">';
-                echo '<div class="col-6 my-auto">';
+                echo "<a href='/?page=view_applicants&id={$row['match_form_id']}' style='text-decoration: none; color: black'>";
+                echo '<div class="row py-3 mb-2" style="border-radius: 4px; border: 1px solid rgba(0, 0, 0, 0.125)">';
+                echo '<div class="col-8 my-auto">';
                 echo ('<h5>'.$row['title'].'</h5>');
                 echo ('<small>'.$row['date_created'].'</small>');
                 echo '</div>';
                 echo '<div class="col-2 text-center my-auto">';
-                echo '<h5>#</h5>';
-                echo '<small>Mentors</small>';
+                echo '<h6>';
+                echo $row['mentor_app_open'] == 0?'CLOSED':'OPEN';
+                echo '</h6>';
+                echo '<small>Mentor Application</small>';
                 echo '</div>';
                 echo '<div class="col-2 text-center my-auto">';
-                echo '<h5>#</h5>';
-                echo '<small>Mentees</small>';
-                echo '</div>';
-                echo '<div class="col-2 text-end my-auto">';
-                echo '<div class="dropdown">';
-                echo '<button class="btn btn-lg btn-outline-secondary" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">';
-                echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">';
-                echo '<path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>';
-                echo '</svg>';
-                echo '</button>';
-                echo '<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">';
-                echo "<li><a class='dropdown-item' href='/?page=view_applicants&id={$row['match_form_id']}'>View Applicants</a></li>";
-                echo '<li><a class="dropdown-item" href="https://www.google.com">Another action</a></li>';
-                echo '<li><a class="dropdown-item" href="#">Something else here</a></li>';
-                echo '</ul>';
+                echo '<h6>';
+                echo $row['mentee_app_open'] == 0?'CLOSED':'OPEN';
+                echo '</h6>';
+                echo '<small>Mentee Application</small>';
                 echo '</div>';
                 echo '</div>';
-                echo '</div>';
+                echo "</a>";
             }
         ?>
 </div>

@@ -113,14 +113,14 @@
             <br>
             <label for="mentor-application-status" class="form-label">Mentor Application Status</label>
             <select class="form-select" id="mentor-application-status" aria-label="Mentor Application Status" disabled>
-                <option value="open" selected>Open</option>
-                <option value="closed">Closed</option>
+                <option value="open">Open</option>
+                <option value="closed" selected>Closed</option>
             </select>
             <br>
             <label for="mentee-application-status" class="form-label">Mentee Application Status</label>
             <select class="form-select" id="mentee-application-status" aria-label="Mentee Application Status" disabled>
-                <option value="open" selected>Open</option>
-                <option value="closed">Closed</option>
+                <option value="open">Open</option>
+                <option value="closed" selected>Closed</option>
             </select>
             <br>
             <div class="form-check form-switch">
