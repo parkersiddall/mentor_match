@@ -15,10 +15,13 @@
 
         switch($action) {
             case "make_matches":
-                require_once "../includes/make_matches.php";
+                require_once __DIR__ . "/make_matches.php";  //TODO add __DIR__ to other relative includes
                 die;
             case "delete_match_form":
                 require_once "../includes/delete_match_form.php";
+                die;
+            case "get_applicant_info":
+                require_once "../includes/get_applicant_data.php";
                 die;
             default:
                 echo json_encode("Bad Request");
@@ -76,7 +79,7 @@
 
     // construct base url for distribution links
     $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
-    $base_url = $protocol.$_SERVER['SERVER_NAME']."/application.php/?id=".$_GET['id']."&m_type=";
+    $base_url = $protocol.$_SERVER['SERVER_NAME']."/application?id=".$_GET['id']."&m_type=";
 ?>
 
 

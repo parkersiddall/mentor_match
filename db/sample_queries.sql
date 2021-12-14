@@ -61,4 +61,13 @@ FROM match_form mf
 WHERE mf.match_form_id = 1
 ORDER BY q.priority;
 
+-- get questions and responses based on application id
+SELECT a.m_type, a.first_name, a.last_name, q.question_text, qo.option_text
+FROM application a
+         JOIN question_response qr ON a.application_id = qr.application_id
+         JOIN question q ON q.question_id = qr.question_id
+         JOIN question_option qo ON qo.option_id = qr.option_id
+WHERE a.application_id = 24
+  AND a.match_form_id = 24;
+
 

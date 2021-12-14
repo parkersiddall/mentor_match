@@ -24,7 +24,7 @@
             <h4>My Projects</h4>
         </div>
         <div class="col-6 text-end">
-                <a href="?page=add_new" class="btn btn-success">
+                <a href="/create" class="btn btn-success">
                     Create New
                 </a>
         </div>
@@ -34,7 +34,7 @@
 
         <?php
             foreach($rows as $row) {
-                echo "<a href='/?page=view_applicants&id={$row['match_form_id']}' style='text-decoration: none; color: black'>";
+                echo "<a href='/project?id={$row['match_form_id']}' style='text-decoration: none; color: black'>";
                 echo '<div class="row py-3 mb-2" style="border-radius: 4px; border: 1px solid rgba(0, 0, 0, 0.125)">';
                 echo '<div class="col-8 my-auto">';
                 echo ('<h5>'.$row['title'].'</h5>');

@@ -2,16 +2,21 @@
     session_start();
 
     // controller
-    $page = isset($_GET['page']) ? $_GET['page'] : "";
-
-    switch($page) {
-        case "add_new":
-            require_once "../includes/add_new.php";
+    $request_uri = parse_url($_SERVER['REQUEST_URI']);
+    switch($request_uri["path"]) {
+        case '/':
+            require_once '../includes/home.php';
             break;
-        case "view_applicants":
-            require_once "../includes/view_applicants.php";
+        case '/create':
+            require_once '../includes/add_new.php';
+            break;
+        case '/application':
+            require_once './application.php';
+            break;
+        case '/project':
+            require_once '../includes/view_applicants.php';
             break;
         default:
-            require_once "../includes/home.php";
+            require_once './404.html';
             break;
     };

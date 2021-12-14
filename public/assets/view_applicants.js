@@ -7,7 +7,7 @@ $(document).ready(function() {
         let formData = {
             "action" : "make_matches"
         }
-        $.post(`/?page=view_applicants&id=${id}`, formData,
+        $.post(`/project?id=${id}`, formData,
             function(response) {
                 // show success message
                 $('#match-data').empty()
@@ -45,7 +45,7 @@ $(document).ready(function() {
             let formData = {
                 "action" : "delete_match_form"
             }
-            $.post(`/?page=view_applicants&id=${id}`, formData,
+            $.post(`/project?id=${id}`, formData,
                 function (response) {
                     // TODO: show success notification
                     window.location.href = "/"

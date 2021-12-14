@@ -57,7 +57,7 @@ $(document).ready(function() {
         event.preventDefault()
         // TODO add spinner
         let formData = collectFormData()
-        $.post("/?page=add_new", formData,
+        $.post("/create", formData,
             function(response) {
                 window.location.href = "/"
             })

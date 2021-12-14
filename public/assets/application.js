@@ -4,7 +4,7 @@ $(document).ready(function() {
     $("#app-form").submit(function(event) {
         event.preventDefault()
         let formData = create_response()
-        $.post("/application.php", formData,
+        $.post("/application", formData,
             function(response) {
                 // show success message
                 console.log(response)
@@ -22,7 +22,6 @@ $(document).ready(function() {
     // helper functions
     const create_response = function () {
         let response = {}
-        // TODO add in match form id
         response.matchFormId = $("#match-form-id").val()
         response.mType = $("#m-type").val()
         response.firstName = $("#first-name").val()
