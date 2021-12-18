@@ -1,5 +1,5 @@
 <?php
-    include_once '../db/pdo.php';
+    include_once __DIR__.'/../db/pdo.php';
     session_start();
 
     // if user not authenticated, return landing page
@@ -16,10 +16,10 @@
             require_once __DIR__ . '/../includes/views/add_new.php';
             break;
         case '/application':
-            require_once './application.php';
+            require_once __DIR__.'/./application.php';
             break;
         case '/project':
-            require_once '../includes/view_applicants.php';
+            require_once __DIR__.'/../includes/view_applicants.php';
             break;
 
         // api
@@ -28,6 +28,6 @@
             break;
 
         default:
-            require_once './404.html';
+            require_once __DIR__.'/./404.html';
             break;
     };

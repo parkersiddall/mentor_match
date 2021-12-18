@@ -55,17 +55,16 @@ $(document).ready(function() {
     // handle submit button
     $("#submit-button").click(function(event) {
         event.preventDefault()
-        // TODO add spinner
         let formData = collectFormData()
-        $.post("/create", formData,
+        $.post("/api/projects", JSON.stringify(formData),
             function(response) {
                 window.location.href = "/"
             })
             .fail(function(response) {
                 // show popup with error message
                 console.log(response.responseText)
-                window.alert(JSON.parse(response.responseText).message)
-            })
+                window.alert(response.responseText)
+            }, "json")
     })
 
 
@@ -152,6 +151,7 @@ $(document).ready(function() {
             formData.questions.push(newQuestion)
         }
 
+        console.log(formData)
         return formData
 
     }
