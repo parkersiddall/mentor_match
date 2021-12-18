@@ -30,12 +30,11 @@
 </div>
 <div id="project-container" class="container py-3">
     <!--projects inserted dynamically via JS-->
-    <div id="loading-icon" class="row justify-content-center">
-        <col-12 class="text-center m-5">
-            <div id="loading"></div>
-        </col-12>
+    <div id="loading-icon" class="row justify-content-center p-5 m-5">
+        <div class="spinner-border text-secondary p-5" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
     </div>
-
 </div>
 </body>
 </html>
