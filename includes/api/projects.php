@@ -126,8 +126,9 @@ try {
 
     }
 } catch (Exception $e) {
-    http_response_code($e->getCode());
-    echo json_encode($e->getMessage());
+    //TODO figure out how to handle PDO exceptions...
+    http_response_code($e->getCode() ? $e->getCode() : "500");
+    echo json_encode($e->getMessage() ? $e->getMessage() : "Internal Server Error");
     die;
 }
 ?>
