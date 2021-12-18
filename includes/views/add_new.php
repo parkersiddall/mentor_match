@@ -92,7 +92,7 @@
     <title>Mentor Match</title>
 </head>
 <body>
-<?php include "components/navbar.php" ?>
+<?php include __DIR__."/../components/navbar.php" ?>
 <div class="container mt-3">
     <form action="">
         <div class="mb-3">
