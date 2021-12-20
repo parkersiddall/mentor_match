@@ -81,13 +81,13 @@ try {
             ':title' => htmlentities($request_data['title']),
             ':mentor_desc' => htmlentities($request_data['mentorDescription']),
             ':mentee_desc' => htmlentities($request_data['menteeDescription']),
-            ':mentor_app_open' => $request_data['mentorApplicationStatus'] === 'true',
-            ':mentee_app_open' => $request_data['menteeApplicationStatus'] === 'true',
-            ':collect_first_name' => $request_data['collectFirstName'] === 'true',
-            ':collect_last_name' => $request_data['collectLastName'] === 'true',
-            ':collect_email' => $request_data['collectEmail'] === 'true',
-            ':collect_phone' => $request_data['collectPhone'] === 'true',
-            ':collect_stud_id' => $request_data['collectStudentID'] === 'true'
+            ':mentor_app_open' => $request_data['mentorApplicationStatus'] === true,
+            ':mentee_app_open' => $request_data['menteeApplicationStatus'] === true,
+            ':collect_first_name' => $request_data['collectFirstName'] === true,
+            ':collect_last_name' => $request_data['collectLastName'] === true,
+            ':collect_email' => $request_data['collectEmail'] === true,
+            ':collect_phone' => $request_data['collectPhone'] === true,
+            ':collect_stud_id' => $request_data['collectStudentID'] === true
         ));
         $match_form_id = $pdo->lastInsertId();
 
