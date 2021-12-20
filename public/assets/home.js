@@ -9,7 +9,7 @@ $(document).ready(function() {
             let menteeAppStatus = projects[project]['mentee_app_status'] ? "OPEN" : "CLOSED"
 
             projectHTML = `
-                <a href="/project?id=24" style="text-decoration: none; color: black">
+                <a href="/project?id=${projects[project]['match_form_id']}" style="text-decoration: none; color: black">
                     <div class="row py-3 mb-2" style="border-radius: 4px; border: 1px solid rgba(0, 0, 0, 0.125)">
                         <div class="col-8 my-auto">
                             <h5>${projects[project]['title']}</h5>
