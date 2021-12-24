@@ -106,8 +106,8 @@
     <div id="form" class="container mt-3 text center">
         <div class="row">
             <div class="col-6">
-                <h4><?php echo $match_form_data[0]['title']?></h4>
-                <small><?php echo $match_form_data[0]['date_created']?></small>
+                <h4 id="project-title"></h4>
+                <small id="project-date-created"></small>
             </div>
             <div class="col-6 text-end">
                 <div class="btn-group" role="group" aria-label="Basic example">
@@ -135,21 +135,19 @@
                 <h5>Quick Stats</h5>
             </div>
             <div class="col-2 text-center my-auto">
-                <h5><?php echo count($mentor_data)?></h5>
+                <h5 id="project-mentor-count"></h5>
                 <small>Mentors</small>
             </div>
             <div class="col-2 text-center my-auto">
-                <h5><?php echo count($mentee_data)?></h5>
+                <h5 id="project-mentee-count"></h5>
                 <small>Mentees</small>
             </div>
             <div class="col-2 text-center my-auto">
-                <h5>
-                <?php echo(count($mentee_data) && count($mentor_data)? ceil(count($mentee_data)/ count($mentor_data)).'/1' : 'N/A')?>
-                </h5>
+                <h5  id="project-ratio"></h5>
                 <small>Mentee/Mentor Ratio</small>
             </div>
             <div class="col-2 text-center my-auto">
-                <h5><?php echo($last_app? $last_app[0]['date_created'] : 'N/A')?></h5>
+                <h5 id="project-num-matches"></h5>
                 <small>Last application</small>
             </div>
         </div>
@@ -174,69 +172,16 @@
                             <tr>
                                 <th scope="col">Application ID</th>
                                 <th scope="col">Date</th>
-                                <?php
-                                    if ($match_form_data[0]['collect_first_name']){
-                                        echo '<th scope="col">First Name</th>';
-                                    }
-                                    if ($match_form_data[0]['collect_last_name']){
-                                        echo '<th scope="col">Last Name</th>';
-                                    }
-                                    if ($match_form_data[0]['collect_email']){
-                                        echo '<th scope="col">Email</th>';
-                                    }
-                                    if ($match_form_data[0]['collect_phone']){
-                                        echo '<th scope="col">Phone</th>';
-                                    }
-                                    if ($match_form_data[0]['collect_stud_id']){
-                                        echo '<th scope="col">Student ID</th>';
-                                    }
-                                ?>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Student ID</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <?php
-                                foreach($mentor_data as $mentor) {
-                                    echo '<tr>';
-                                    echo "<td>{$mentor['application_id']}</td>";
-                                    echo "<td>{$mentor['date_created']}</td>";
-
-                                    if ($match_form_data[0]['collect_first_name']){
-                                        echo "<td>{$mentor['first_name']}</td>";
-                                    }
-                                    if ($match_form_data[0]['collect_last_name']){
-                                        echo "<td>{$mentor['last_name']}</td>";
-                                    }
-                                    if ($match_form_data[0]['collect_email']){
-                                        echo "<td>{$mentor['email']}</td>";
-                                    }
-                                    if ($match_form_data[0]['collect_phone']){
-                                        echo "<td>{$mentor['phone']}</td>";
-                                    }
-                                    if ($match_form_data[0]['collect_stud_id']){
-                                        echo "<td>{$mentor['stud_id']}</td>";
-                                    }
-                                    echo '
-                                            <td>
-                                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-outline-secondary">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-                                                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                          <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                                        </svg>
-                                                    </button>
-                                                    <button type="button" class="btn btn-outline-secondary">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                                                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        ';
-                                    echo '</tr>';
-                                }
-                            ?>
+                            <tbody id="mentor-container">
+                                <!-- data inserted via JS -->
                             </tbody>
                         </table>
                     </div>
@@ -248,51 +193,16 @@
                             <tr>
                                 <th scope="col">Application ID</th>
                                 <th scope="col">Date</th>
-                                <?php
-                                if ($match_form_data[0]['collect_first_name']){
-                                    echo '<th scope="col">First Name</th>';
-                                }
-                                if ($match_form_data[0]['collect_last_name']){
-                                    echo '<th scope="col">Last Name</th>';
-                                }
-                                if ($match_form_data[0]['collect_email']){
-                                    echo '<th scope="col">Email</th>';
-                                }
-                                if ($match_form_data[0]['collect_phone']){
-                                    echo '<th scope="col">Phone</th>';
-                                }
-                                if ($match_form_data[0]['collect_stud_id']){
-                                    echo '<th scope="col">Student ID</th>';
-                                }
-                                ?>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Student ID</th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <?php
-                            foreach($mentee_data as $mentee) {
-                                echo '<tr>';
-                                echo "<td>{$mentee['application_id']}</td>";
-                                echo "<td>{$mentee['date_created']}</td>";
-
-                                if ($match_form_data[0]['collect_first_name']){
-                                    echo "<td>{$mentee['first_name']}</td>";
-                                }
-                                if ($match_form_data[0]['collect_last_name']){
-                                    echo "<td>{$mentee['last_name']}</td>";
-                                }
-                                if ($match_form_data[0]['collect_email']){
-                                    echo "<td>{$mentee['email']}</td>";
-                                }
-                                if ($match_form_data[0]['collect_phone']){
-                                    echo "<td>{$mentee['phone']}</td>";
-                                }
-                                if ($match_form_data[0]['collect_stud_id']){
-                                    echo "<td>{$mentee['stud_id']}</td>";
-                                }
-
-                                echo '</tr>';
-                            }
-                            ?>
+                            <tbody id="mentee-container">
+                                <!-- data inserted via JS -->
                             </tbody>
                         </table>
                     </div>
@@ -316,23 +226,7 @@
                             </tr>
                             </thead>
                             <tbody id="match-data">
-                            <?php
-                            foreach($matches_data as $match) {
-                                echo '<tr>';
-                                echo "<td>{$match['match_id']}</td>";
-                                echo "<td>{$match['date_created']}</td>";
-                                echo "<td>".round($match['confidence_rate'] * 100 ).'%'."</td>";
-                                echo "<td>{$match['mentee_application_id']}</td>";
-                                echo "<td>{$match['mentee_first_name']}</td>";
-                                echo "<td>{$match['mentee_last_name']}</td>";
-                                echo "<td>{$match['mentee_email']}</td>";
-                                echo "<td>{$match['mentor_application_id']}</td>";
-                                echo "<td>{$match['mentor_first_name']}</td>";
-                                echo "<td>{$match['mentor_last_name']}</td>";
-                                echo "<td>{$match['mentor_email']}</td>";
-                                echo '</tr>';
-                            }
-                            ?>
+                            <!-- data inserted via JS -->
                             </tbody>
                         </table>
                     </div>
