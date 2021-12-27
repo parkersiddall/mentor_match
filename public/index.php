@@ -29,6 +29,9 @@
         case '/api/applicants':
             require_once __DIR__.'/../includes/api/applicants.php';
             break;
+        case '/api/responses':
+            require_once __DIR__.'/../includes/api/responses.php';
+            break;
 
         default:
             require_once __DIR__.'/./404.html';
