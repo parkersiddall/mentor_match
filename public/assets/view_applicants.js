@@ -14,10 +14,10 @@ $(document).ready(function() {
         })
 
     // load applicants and matches, set interval to refresh every 10 seconds
-    load_applicants()
+    loadApplicants()
 
     setInterval(function() {
-        load_applicants()
+        loadApplicants()
     }, 10000)
 
 
@@ -79,7 +79,7 @@ $(document).ready(function() {
     })
 
     // helper functions
-    function load_applicants() {
+    function loadApplicants() {
         $.get(`/api/applicants?id=${id}`, function(response) {
             // TODO: hide loading icons (still need to insert them)
 
@@ -96,7 +96,7 @@ $(document).ready(function() {
 
             $(applicants).each(function(applicant) {
                 let applicantRow = `
-                <tr>
+                <tr class="applicant-id" id=${applicants[applicant]['application_id']}>
                     <td>${applicants[applicant]['application_id']}</td>
                     <td>${applicants[applicant]['date_created']}</td>
                     <td>${applicants[applicant]['first_name']}</td>
@@ -105,8 +105,8 @@ $(document).ready(function() {
                     <td>${applicants[applicant]['phone']}</td>
                     <td>${applicants[applicant]['stud_id']}</td>
                     <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#applicantDetailsModal">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-secondary applicant-response-button" data-bs-toggle="modal" data-bs-target="#applicantResponseModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
@@ -126,12 +126,14 @@ $(document).ready(function() {
                 if(applicants[applicant]['m_type'] == "mentor") {
                     mentorContainer.append(applicantRow)
                     mentor_count++
-                    console.log(mentor_count)
                 } else if (applicants[applicant]['m_type'] == "mentee") {
                     menteeContainer.append(applicantRow)
                     mentee_count++
                 }
             })
+
+            // reload buttons in DOM
+            loadApplicantResponseButtons()
 
             // adjust stats
             $('#project-mentor-count').text(mentor_count)
@@ -143,5 +145,48 @@ $(document).ready(function() {
             .fail(function(error) {
                 console.log(error)
             })
+    }
+
+    function loadApplicantResponseButtons() {
+        $('.applicant-response-button').click(function(event) {
+            $("#question-responses-container").empty()
+            let application_id = findParent(event, 'applicant-id').id
+            adjustApplicantResponseModal(application_id)
+        })
+    }
+
+    function adjustApplicantResponseModal(application_id) {
+        // get info from api and load it into DOM
+        $.get(`/api/responses?id=${id}&application_id=${application_id}`,
+            function (response) {
+                responses = JSON.parse(response)
+                $(responses).each(function(index) {
+                    console.log(responses[index]['question_text'])
+                    let questionData =`
+                        <div class="my-2">
+                            <span>
+                                <b>${responses[index]['question_text']}</b>
+                            </span>
+                            <br>
+                            <span>${responses[index]['option_text']}</span>
+                        </div>
+                        `
+                    $("#question-responses-container").append(questionData)
+                })
+
+            })
+            .fail(function(response) {
+                // show popup with error message
+                console.log(response.responseText)
+                window.alert(JSON.parse(response.responseText).message)
+            })
+    }
+
+    function findParent (event, className) {
+        let e = event.target
+        while (e.classList.contains(className) == false) {
+            e = e.parentNode
+        }
+        return e
     }
 })

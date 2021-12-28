@@ -30,58 +30,10 @@
         };
     }
 
-    // else if method is GET, do what is below
-
-    // collect info from database
-    // match form data
-    $sql = "SELECT * FROM match_form WHERE match_form_id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':id' => $_GET['id']
-    ));
-    $match_form_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // get applicant data
-    $sql = "SELECT * FROM application WHERE match_form_id = :id AND m_type = 'mentor'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':id' => $_GET['id']
-    ));
-    $mentor_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $sql = "SELECT * FROM application WHERE match_form_id = :id AND m_type = 'mentee'";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':id' => $_GET['id']
-    ));
-    $mentee_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $sql = "SELECT * FROM application WHERE match_form_id = :id ORDER BY 'date_created' DESC LIMIT 1";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':id' => $_GET['id']
-    ));
-    $last_app = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // get matches
-    $sql = "SELECT mp.match_id, mp.date_created, mp.confidence_rate, a.application_id AS 'mentee_application_id',
-            a.first_name AS 'mentee_first_name', a.last_name AS 'mentee_last_name', a.email AS 'mentee_email',
-            a2.application_id AS 'mentor_application_id', a2.first_name AS 'mentor_first_name', a2.last_name AS 'mentor_last_name', a2.email AS 'mentor_email'
-            FROM match_pair mp
-            JOIN application a ON mp.mentee_application_id = a.application_id
-            JOIN application a2 ON mp.mentor_application_id = a2.application_id
-            WHERE mp.match_form_id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(array(
-        ':id' => $_GET['id']
-    ));
-    $matches_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
     // construct base url for distribution links
     $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
     $base_url = $protocol.$_SERVER['SERVER_NAME']."/application?id=".$_GET['id']."&m_type=";
 ?>
-
 
 <html>
 <head>
@@ -188,7 +140,7 @@
                 </div>
                 <div class="tab-pane fade" id="mentee-tab-content" role="tabpanel" aria-labelledby="mentee-tab-button">
                     <div class="table-responsive">
-                        <table class="table">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th scope="col">Application ID</th>
@@ -209,7 +161,7 @@
                 </div>
                 <div class="tab-pane fade show" id="matches-tab-content" role="tabpanel" aria-labelledby="matches-tab-button">
                     <div class="table-responsive-xxl">
-                        <table class="table">
+                        <table class="table table-hover">
                             <thead>
                             <tr>
                                 <th scope="col">Match ID</th>
@@ -233,7 +185,7 @@
                 </div>
             </div>
         </div>
-
+        <!-- distribution modal -->
         <div class="modal fade" id="distributionModal" tabindex="-1" aria-labelledby="distributionModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -263,26 +215,18 @@
             </div>
         </div>
 
-        <div class="modal fade" id="applicantDetailsModal" tabindex="-1" aria-labelledby="applicantDetailsModalLabel" aria-hidden="true">
+        <!-- applicant response modal -->
+        <div class="modal fade" id="applicantResponseModal" tabindex="-1" aria-labelledby="applicantResponseModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Applicant Responses</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Question Responses</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5>Application Links</h5>
-                        <p>Distribute these links to those who need to apply.</p>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Mentor Application</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php echo $base_url."mentor"?>" disabled>
+                        <div id="question-responses-container">
+                            <!-- questions and responses inserted via JS -->
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Mentee Application</label>
-                            <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php echo $base_url."mentee"?>" disabled>
-                        </div>
-                        <br>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
