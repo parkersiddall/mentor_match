@@ -44,9 +44,29 @@ try {
         die;
     }
 
-    // POST
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
+    // DELETE
+    if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
 
+        $data = null;
+
+        if(!isset($_GET['application_id'])) {
+            throw new Exception("application_id parameter is mandatory", 400);
+        } else {
+            $sql = "DELETE FROM application 
+                    WHERE match_form_id = :match_form_id
+                    AND application_id = :application_id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':match_form_id' => htmlentities($_GET['id']),
+                ':application_id' => htmlentities($_GET['application_id'])
+            ));
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // send json back
+            http_response_code( "204");
+            echo json_encode($data);
+            die;
+        }
     }
 } catch (Exception $e) {
     echo $e;
