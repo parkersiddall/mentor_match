@@ -19,7 +19,7 @@
             require_once __DIR__.'/./application.php';
             break;
         case '/project':
-            require_once __DIR__.'/../includes/view_applicants.php';
+            require_once __DIR__ . '/../includes/views/view_applicants.php';
             break;
 
         // api

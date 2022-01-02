@@ -1,33 +1,8 @@
 <?php
-    include '../db/pdo.php';
+    include __DIR__ . '/../../db/pdo.php';
     if (!isset($_GET['id'])) {
         include '404.html';
         die;
-    }
-
-    // if method is POST
-        // check for id
-        // check for action
-        // switch for action type
-
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $action = isset($_POST['action']) ? $_POST['action'] : "";
-
-        switch($action) {
-            case "make_matches":
-                require_once __DIR__ . "/make_matches.php";  //TODO add __DIR__ to other relative includes
-                die;
-            case "delete_match_form":
-                require_once "../includes/delete_match_form.php";
-                die;
-            case "get_applicant_info":
-                require_once "../includes/get_applicant_data.php";
-                die;
-            default:
-                echo json_encode("Bad Request");
-                die;
-                // send back error json
-        };
     }
 
     // construct base url for distribution links
@@ -54,7 +29,7 @@
 <body>
     <!--hidden elements to access data from JavaScript-->
     <input id="match-form-id" type="text" hidden value="<?php echo $_GET['id']?>">
-    <?php include "components/navbar.php" ?>
+    <?php include __DIR__.'/../components/navbar.php' ?>
     <div id="form" class="container mt-3 text center">
         <div class="row">
             <div class="col-6">
