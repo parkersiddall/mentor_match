@@ -123,7 +123,30 @@ try {
         http_response_code(201);
         echo json_encode($data);
         die;
+    }
 
+    // DELETE
+    if($_SERVER["REQUEST_METHOD"] === "DELETE") {
+
+        if (!isset($_GET['id'])) {
+            http_response_code( "400");
+            echo json_encode("Missing ID parameter.");
+            die;
+        }
+
+        $data = null;
+
+        $sql = "DELETE FROM match_form
+                WHERE match_form_id=:id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':id' => $_GET['id']
+        ));
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // send json back
+        http_response_code( "204");
+        die;
     }
 } catch (Exception $e) {
     //TODO figure out how to handle PDO exceptions...

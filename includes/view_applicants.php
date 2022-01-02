@@ -100,7 +100,7 @@
             </div>
             <div class="col-2 text-center my-auto">
                 <h5 id="project-num-matches"></h5>
-                <small>Last application</small>
+                <small>Matches</small>
             </div>
         </div>
         <br>
@@ -177,7 +177,7 @@
                                 <th scope="col">Mentor Email</th>
                             </tr>
                             </thead>
-                            <tbody id="match-data">
+                            <tbody id="matches-container">
                             <!-- data inserted via JS -->
                             </tbody>
                         </table>

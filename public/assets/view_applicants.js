@@ -64,13 +64,12 @@ $(document).ready(function() {
     $("#delete-match-form").click(function(event) {
         confirmDelete = confirm("Are you sure you wish to delete this match form? All data will be lost.")
         if(confirmDelete == true) {
-            let formData = {
-                "action" : "delete_match_form"
-            }
-            $.post(`/project?id=${id}`, formData,
-                function (response) {
-                    // TODO: show success notification
+            $.ajax({
+                url: `/api/projects?id=${id}` ,
+                type: 'DELETE',
+                success: function(result) {
                     window.location.href = "/"
+                }
             })
             .fail(function(response) {
                 // show popup with error message
