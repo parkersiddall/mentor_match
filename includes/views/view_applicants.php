@@ -150,6 +150,7 @@
                                 <th scope="col">Mentor First Name</th>
                                 <th scope="col">Mentor Last Name</th>
                                 <th scope="col">Mentor Email</th>
+                                <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody id="matches-container">
