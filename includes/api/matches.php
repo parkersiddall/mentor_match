@@ -29,6 +29,7 @@
         }
 
         // POST -- match all unmatched mentees
+        // TODO: if application_id not set, matchs all unmatches. If application_id set, matches that specific mentee
         if($_SERVER["REQUEST_METHOD"] === "POST") {
 
             // make new matcher
@@ -49,12 +50,31 @@
             ));
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // send json back
+            // send response
             echo json_encode($data);
             die;
         }
 
+        // DELETE
+        if($_SERVER["REQUEST_METHOD"] === "DELETE") {
+            if(!isset($_GET['match_id'])) {
+                throw new Exception("match_id parameter is mandatory", 400);
+            } else {
+                $sql = "DELETE FROM match_pair 
+                    WHERE match_form_id = :match_form_id
+                    AND match_id = :match_id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(
+                    ':match_form_id' => htmlentities($_GET['id']),
+                    ':match_id' => htmlentities($_GET['match_id'])
+                ));
+                $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+                // send response
+                http_response_code( "204");
+                die;
+            }
+        }
     } catch (Exception $e) {
         //TODO figure out how to handle PDO exceptions...
         http_response_code($e->getCode() ? $e->getCode() : "500");
