@@ -23,44 +23,18 @@ $(document).ready(function() {
     }, 10000)
 
 
-
-    // event listeners
+    // make matches button
     $("#make-matches").click(function(event) {
-        let formData = {
-            "action" : "make_matches"
-        }
-        $.post(`/project?id=${id}`, formData,
-            function(response) {
-                // show success message
-                $('#match-data').empty()
-                let receivedData = ''
-                let responseJSON = $.parseJSON(response)
-                $(responseJSON).each(function(match) {
-                    let row = `
-                        <tr>
-                            <td>${responseJSON[match]['match_id']}</td>
-                            <td>${responseJSON[match]['date_created']}</td>
-                            <td>${Math.round(responseJSON[match]['confidence_rate'] * 100)}%</td>
-                            <td>${responseJSON[match]['mentee_application_id']}</td>
-                            <td>${responseJSON[match]['mentee_first_name']}</td>
-                            <td>${responseJSON[match]['mentee_last_name']}</td>
-                            <td>${responseJSON[match]['mentee_email']}</td>
-                            <td>${responseJSON[match]['mentor_application_id']}</td>
-                            <td>${responseJSON[match]['mentor_first_name']}</td>
-                            <td>${responseJSON[match]['mentor_last_name']}</td>
-                            <td>${responseJSON[match]['mentor_email']}</td>
-                        </tr>
-                    `
-                    receivedData += row
-                })
-                $('#match-data').html(receivedData)
-            })
-            .fail(function(response) {
-                // show popup with error message
-                window.alert(JSON.parse(response.responseText).message)
-            })
+        $.post(`/api/matches?id=${id}`, function(response) {
+            loadMatches()
+        })
+        .fail(function(response) {
+            // show popup with error message
+            window.alert(JSON.parse(response.responseText).message)
+        })
     })
 
+    // delete project button
     $("#delete-match-form").click(function(event) {
         confirmDelete = confirm("Are you sure you wish to delete this match form? All data will be lost.")
         if(confirmDelete == true) {
@@ -80,8 +54,6 @@ $(document).ready(function() {
     })
 
 
-
-    // helper functions
     function loadApplicants() {
         $.get(`/api/applicants?id=${id}`, function(response) {
             // TODO: hide loading icons (still need to insert them)
