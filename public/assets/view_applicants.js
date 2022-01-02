@@ -15,9 +15,11 @@ $(document).ready(function() {
 
     // load applicants and matches, set interval to refresh every 10 seconds
     loadApplicants()
+    loadMatches()
 
     setInterval(function() {
         loadApplicants()
+        loadMatches()
     }, 10000)
 
 
@@ -144,6 +146,48 @@ $(document).ready(function() {
 
             let ratio = mentee_count && mentor_count ? `${Math.ceil(mentee_count / mentor_count)}/1` : 'N/A'
             $('#project-ratio').text(ratio)
+        })
+            .fail(function(error) {
+                console.log(error)
+            })
+    }
+
+    function loadMatches(){
+        $.get(`/api/matches?id=${id}`, function(response) {
+            // TODO: hide loading icons (still need to insert them)
+
+            let matchContainer = $("#matches-container")
+            $(matchContainer).empty()
+
+            let responseJSON = JSON.parse(response)
+            let matchCount = responseJSON.length
+            let receivedData = ''
+
+            $(responseJSON).each(function(match) {
+                let row = `
+                    <tr>
+                        <td>${responseJSON[match]['match_id']}</td>
+                        <td>${responseJSON[match]['date_created']}</td>
+                        <td>${Math.round(responseJSON[match]['confidence_rate'] * 100)}%</td>
+                        <td>${responseJSON[match]['mentee_application_id']}</td>
+                        <td>${responseJSON[match]['mentee_first_name']}</td>
+                        <td>${responseJSON[match]['mentee_last_name']}</td>
+                        <td>${responseJSON[match]['mentee_email']}</td>
+                        <td>${responseJSON[match]['mentor_application_id']}</td>
+                        <td>${responseJSON[match]['mentor_first_name']}</td>
+                        <td>${responseJSON[match]['mentor_last_name']}</td>
+                        <td>${responseJSON[match]['mentor_email']}</td>
+                    </tr>
+                `
+                receivedData += row
+
+                })
+                $('#matches-container').html(receivedData)
+
+            // load buttons for each row
+
+            // adjust stats
+            $('#project-num-matches').text(matchCount)
         })
             .fail(function(error) {
                 console.log(error)

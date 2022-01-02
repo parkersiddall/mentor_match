@@ -32,6 +32,10 @@
         case '/api/responses':
             require_once __DIR__.'/../includes/api/responses.php';
             break;
+        case '/api/matches':
+            require_once __DIR__.'/../includes/api/matches.php';
+            break;
+
 
         default:
             require_once __DIR__.'/./404.html';
