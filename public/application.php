@@ -82,8 +82,10 @@
         die;
 
     } else {
-        if($form_data[0]['mentor_app_open']) {
-            // TODO create view for closed apps. Return it here.
+        $m_type_string = $_GET['m_type'] == 'mentor' ? 'mentor_app_open' : 'mentee_app_open';
+        if($form_data[0][$m_type_string] == 0) {
+            include "application_closed.html";
+            die;
         }
 
         // get questions and options
