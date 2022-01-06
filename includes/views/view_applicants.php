@@ -173,19 +173,28 @@
                         <h5>Application Links</h5>
                         <p>Distribute these links to those who need to apply.</p>
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Mentor Application</label>
+                            <label for="exampleFormControlInput1" class="form-label"><b>Mentor Application</b></label>
                             <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php echo $base_url."mentor"?>" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">Mentee Application</label>
+                            <label for="exampleFormControlInput1" class="form-label"><b>Mentee Application</b></label>
                             <input type="email" class="form-control" id="exampleFormControlInput1" value="<?php echo $base_url."mentee"?>" disabled>
                         </div>
                         <br>
-
+                        <h5>Application Status</h5>
+                        <p>If enabled, applicants will be able to view and submit the application form. If disabled, the application will be closed and applicants will receive a closed message.</p>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="mentor-app-status">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Accepting Mentor applications</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="mentee-app-status">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Accepting Mentee applications</label>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button id="close-app-status"type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="save-app-status" type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>

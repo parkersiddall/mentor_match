@@ -5,8 +5,8 @@ $(document).ready(function() {
         let projects = JSON.parse(response)
         $(projects).each(function(project) {
 
-            let mentorAppStatus = projects[project]['mentor_app_status'] ? "OPEN" : "CLOSED"
-            let menteeAppStatus = projects[project]['mentee_app_status'] ? "OPEN" : "CLOSED"
+            let mentorAppStatus = projects[project]['mentor_app_open'] == true? "OPEN" : "CLOSED"
+            let menteeAppStatus = projects[project]['mentee_app_open'] == true ? "OPEN" : "CLOSED"
 
             projectHTML = `
                 <a href="/project?id=${projects[project]['match_form_id']}" style="text-decoration: none; color: black">

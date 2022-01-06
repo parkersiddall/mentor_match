@@ -2,7 +2,7 @@
     include_once __DIR__.'/../db/pdo.php';
     session_start();
 
-    // if user not authenticated, return landing page
+    // TODO: if user not authenticated, return landing page
 
     // router
     $request_uri = parse_url($_SERVER['REQUEST_URI']);
@@ -24,7 +24,10 @@
 
         // api
         case '/api/projects':
-            require_once __DIR__.'/../includes/api/projects.php';
+            require_once __DIR__.'/../includes/api/projects/projects.php';
+            break;
+        case '/api/projects/app_status':
+            require_once __DIR__.'/../includes/api/projects/app_status.php';
             break;
         case '/api/applicants':
             require_once __DIR__.'/../includes/api/applicants.php';

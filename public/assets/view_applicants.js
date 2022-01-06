@@ -8,6 +8,10 @@ $(document).ready(function() {
         let projectData = JSON.parse(response)
         $("#project-title").text(projectData[0]['title'])
         $("#project-date-created").text(projectData[0]['date_created'])
+
+        // set app statuses
+        projectData[0]['mentor_app_open'] == true ? $('#mentor-app-status').click() : null
+        projectData[0]['mentee_app_open']== true ? $('#mentee-app-status').click() : null
     })
         .fail(function(error) {
             console.log(error)
@@ -265,6 +269,33 @@ $(document).ready(function() {
             }
         })
     }
+
+    // changing app status
+    $('#save-app-status').click(function(event) {
+        let mentorAppStatus = $('#mentor-app-status').is(':checked')
+        let menteeAppStatus = $('#mentee-app-status').is(':checked')
+
+        let data = {
+            'mentorApplicationStatus': mentorAppStatus,
+            'menteeApplicationStatus': menteeAppStatus
+        }
+
+        $.ajax({
+            url: `/api/projects/app_status?id=${id}` ,
+            type: 'PUT',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(result) {
+                $('#close-app-status').click()
+                // TODO: if user adjusted toggle but doesnt save, the toggle needs to be undone
+            }
+        })
+            .fail(function(response) {
+                // show popup with error message
+                console.log(response.responseText)
+                window.alert('Error saving application status.')
+            })
+    })
 
     function findParent (event, className) {
         let e = event.target
