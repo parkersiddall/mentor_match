@@ -16,10 +16,10 @@ try {
         // validation
         $app_status_options = array("open", "closed");
         if (!is_bool($request_data['mentorApplicationStatus'])) {
-            throw new Exception("Application status must be open or closed.", 400);
+            throw new Exception("Application status must true or false.", 400);
         }
         if (!is_bool($request_data['menteeApplicationStatus'])) {
-            throw new Exception("Application status must be open or closed.", 400);
+            throw new Exception("Application status must be true or false.", 400);
         }
 
         // update DB
