@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "5de53a16-c670-45e7-8330-901e23fdf0ea",
+		"name": "Mentor Match",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "project app status",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mentorApplicationStatus\": true, \r\n    \"menteeApplicationStatus\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost/api/projects/app_status?id=36",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"path": [
+										"api",
+										"projects",
+										"app_status"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "36"
+										}
+									]
+								},
+								"description": "id query param is mandatory\n\njson body must include these keys, which need to have a boolean value.\n\ntrue= application is open\n\nfalse= application is closed"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "http://localhost/api/projects",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"sdfadsf\",\r\n    \"mentorDescription\": \"sadfsdfadff\",\r\n    \"menteeDescription\": \"asdfsadfdsaf\",\r\n    \"mentorApplicationStatus\": \"closed\",\r\n    \"menteeApplicationStatus\": \"closed\",\r\n    \"collectFirstName\": true,\r\n    \"collectLastName\": true,\r\n    \"collectEmail\": true,\r\n    \"collectPhone\": true,\r\n    \"collectStudentID\": true,\r\n    \"questions\": [\r\n        {\r\n            \"priority\": 0,\r\n            \"question\": \"dsfsdf\",\r\n            \"options\": [\r\n                \"sdfasdf\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost/api/projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "int",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost/api/projects?id=33",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/projects?id=33",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "33"
+								}
+							]
+						},
+						"description": "id param is mandatory"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "applicants",
+			"item": [
+				{
+					"name": "localhost/api/applicants?id=36&m_type=mentor",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true,
+							"user-agent": true,
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/applicants?id=36&application_id=26",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"applicants"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "36",
+									"description": "Mandatory. Must be set if order to receive applicants for a specific project."
+								},
+								{
+									"key": "application_id",
+									"value": "26",
+									"description": "If set, it will retreive the applicant with the given ID. NOTE: id param is still mandatory"
+								},
+								{
+									"key": "m_type",
+									"value": "menteedd",
+									"description": "Must be mentor or mentee. If set, returns all applications for the specified m_type. If application_id is also set, it will supercede this parameter. ",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost/api/applicants?id=36&application_id=30",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/applicants?id=36&application_id=30",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"applicants"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "36"
+								},
+								{
+									"key": "application_id",
+									"value": "30"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "responses",
+			"item": [
+				{
+					"name": "localhost/api/responses?id=36&application_id=26",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"host": true,
+							"user-agent": true,
+							"accept": true,
+							"accept-encoding": true,
+							"connection": true
+						}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/responses?id=36&application_id=26",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"responses"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "36",
+									"description": "Mandatory. id is project id"
+								},
+								{
+									"key": "application_id",
+									"value": "26",
+									"description": "Mandatory. "
+								}
+							]
+						},
+						"description": "Returns a list of objects. Each object corresponds to a question in the match_form (project). Each object will have a different question_text and option_text values. All other keys should have the same values."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "matches",
+			"item": [
+				{
+					"name": "localhost/api/matches?id=36",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/matches?id=36",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"matches"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "36"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost/api/matches?id=36",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/matches?id=36",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"matches"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "36"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "localhost/api/matches?id=36&match_id=160",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/matches?id=36&match_id=160",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"matches"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "36"
+								},
+								{
+									"key": "match_id",
+									"value": "160"
+								}
+							]
+						},
+						"description": "id is mandatory\n\nmatch_id is mandatory"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
