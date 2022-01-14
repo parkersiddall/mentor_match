@@ -46,5 +46,6 @@ To collaborate, create a branch with the following naming structure `<your_name>
 - Review error handling in APIs
 - Set up user authentication (trying to find a library that can easily do this)
 - Create stylesheets for views
+- Password protect application forms
 
 
