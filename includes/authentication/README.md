@@ -24,3 +24,8 @@ TODO
 TODO
 ## User authentication
 TODO
+
+
+# TODO: Don't forget to do these
+- add new tables (registation, school, user) to DB
+- update match_form table, add foreign key for user_id
