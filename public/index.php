@@ -8,6 +8,11 @@
     $request_uri = parse_url($_SERVER['REQUEST_URI']);
     switch($request_uri['path']) {
 
+        // registration and authentication
+        case '/register':
+            require_once __DIR__.'/../includes/authentication/register.php';
+            break;
+
         // views
         case '/':
             require_once __DIR__.'/../includes/views/home.php';
