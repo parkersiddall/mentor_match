@@ -10,7 +10,7 @@
 
         // registration and authentication
         case '/register':
-            require_once __DIR__.'/../includes/authentication/register.php';
+            require_once __DIR__ . '/../includes/views/authentication/register.php';
             break;
 
         // views

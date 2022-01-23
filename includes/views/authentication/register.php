@@ -21,7 +21,7 @@
     <title>Mentor Match Application</title>
 </head>
 <body>
-    <?php include "../includes/components/navbar.php" ?>
+    <?php include "../../components/navbar.php" ?>
     <div id="form" class="container mt-3 text center">
         <h2>
             Getting started with Mentor Match
@@ -59,7 +59,7 @@
                 <select id="school_states" class="form-select" aria-label="School state">
                     <option value="" selected disabled>Select</option>
                     <?php
-                    $states = json_decode(file_get_contents(__DIR__."/../utilities/form_lists/states.json"), true);
+                    $states = json_decode(file_get_contents(__DIR__ . "/../utilities/form_lists/states.json"), true);
                     foreach ($states as $state) {
                         echo '<option value='.$state.'>'.$state.'</option>';
                     }
@@ -70,7 +70,7 @@
                 <select id="school_country" class="form-select" aria-label="School country">
                     <option value="" selected disabled>Select</option>
                     <?php
-                    $countries = json_decode(file_get_contents(__DIR__."/../utilities/form_lists/countries.json"), true);
+                    $countries = json_decode(file_get_contents(__DIR__ . "/../utilities/form_lists/countries.json"), true);
                     foreach ($countries as $country) {
                         echo '<option value='.$country.'>'.$country.'</option>';
                     }
