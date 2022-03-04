@@ -1,45 +1,19 @@
 CREATE DATABASE mentor_match DEFAULT CHARACTER	SET utf8;
 USE mentor_match;
 
--- table for new user registration forms
-CREATE TABLE new_user_registration_form (
-    nurf_id INT NOT NULL AUTO_INCREMENT,
-    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    email TEXT NOT NULL,
-    password_hash TEXT NOT NULL,
-    school_name TEXT NOT NULL,
-    school_city TEXT NOT NULL,
-    school_state TEXT NOT NULL,
-    school_country TEXT NOT NULL,
-    accept_terms BOOL NOT NULL DEFAULT FALSE,
-    approved BOOL NOT NULL DEFAULT FALSE,
-    PRIMARY KEY(nurf_id)
-);
-
--- table for schools
-CREATE TABLE school (
-    school_id INT NOT NULL AUTO_INCREMENT,
-    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    school_name TEXT NOT NULL,
-    school_city TEXT NOT NULL,
-    school_state TEXT NOT NULL,
-    school_country TEXT NOT NULL,
-    PRIMARY KEY(school_id)
-);
-
 -- table for users
-CREATE TABLE app_user (
-    app_user_id INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE user (
+    user_id INT NOT NULL AUTO_INCREMENT,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     email TEXT NOT NULL,
     password_hash TEXT NOT NULL,
-    school_id INT NOT NULL,
+    school_name TEXT NOT NULL,
+    school_city TEXT NOT NULL,
+    school_state TEXT NOT NULL,
+    school_country TEXT NOT NULL,
     accept_terms BOOL NOT NULL DEFAULT FALSE,
     approved BOOL NOT NULL DEFAULT FALSE,
-    PRIMARY KEY(app_user_id),
-    FOREIGN KEY(school_id)
-        REFERENCES school(school_id)
-        ON DELETE CASCADE
+    PRIMARY KEY(user_id)
 );
 
 -- table for match forms

@@ -1,8 +1,20 @@
 <?php
 // TODO: add backend logic here
+
+    $form_error_msg = '';
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // check that email is valid
+        if (!str_contains($_POST['email'], '@')) {
+            $form_error_msg = 'Invalid email';
+        };
+        // check that email does not exist in DB
+        // check that passwords match
+        // persist user in db
+        // redirect to login page
+    }
 ?>
 
-<!-- TODO: add view below -->
 
 <html>
 <head>
@@ -21,7 +33,7 @@
     <title>Mentor Match Application</title>
 </head>
 <body>
-    <?php include "../../components/navbar.php" ?>
+    <?php include __DIR__."/../../components/navbar.php" ?>
     <div id="form" class="container mt-3 text center">
         <h2>
             Getting started with Mentor Match
@@ -33,33 +45,40 @@
             Our team will then review your registration and activate your account. You can expect to receive an email notification once your account has been activated. After that, you will be able to log in using the email and password provided during registration.
         </p>
         <hr>
-        <form id="registration-form">
+        <?php
+            if ($form_error_msg) {
+                echo '<div>';
+                echo $form_error_msg;
+                echo '</div>';
+            }
+        ?>
+        <form id="registration-form" method="POST">
             <div class="mb-3">
                 <h4>User credentials</h4>
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email">
+                <input type="email" class="form-control" id="email" name="email" required>
                 <br>
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" id="password" name="password" required>
                 <br>
                 <label for="confirm_password" class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" id="confirm_password">
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
                 <br>
             </div>
             <hr>
             <div class="mb-3">
                 <h4>School information</h4>
                 <label for="school_name" class="form-label">School Name</label>
-                <input type="text" class="form-control" countryschool_name">
+                <input type="text" class="form-control" id="school_name" name="school_name" required>
                 <br>
                 <label for="school_city" class="form-label">School City</label>
-                <input type="text" class="form-control" id="school_city">
+                <input type="text" class="form-control" id="school_city" name="school_city" required>
                 <br>
                 <label for="school_state" class="form-label">School State</label>
-                <select id="school_states" class="form-select" aria-label="School state">
+                <select id="school_state" class="form-select" aria-label="School state" name="school_state" required>
                     <option value="" selected disabled>Select</option>
                     <?php
-                    $states = json_decode(file_get_contents(__DIR__ . "/../utilities/form_lists/states.json"), true);
+                    $states = json_decode(file_get_contents(__DIR__ . "/../../utilities/form_lists/states.json"), true);
                     foreach ($states as $state) {
                         echo '<option value='.$state.'>'.$state.'</option>';
                     }
@@ -67,10 +86,10 @@
                 </select>
                 <br>
                 <label for="school_country" class="form-label">School Country</label>
-                <select id="school_country" class="form-select" aria-label="School country">
+                <select id="school_country" class="form-select" aria-label="School country" name="school_country" required>
                     <option value="" selected disabled>Select</option>
                     <?php
-                    $countries = json_decode(file_get_contents(__DIR__ . "/../utilities/form_lists/countries.json"), true);
+                    $countries = json_decode(file_get_contents(__DIR__ . "/../../utilities/form_lists/countries.json"), true);
                     foreach ($countries as $country) {
                         echo '<option value='.$country.'>'.$country.'</option>';
                     }
@@ -82,7 +101,7 @@
             <div>
                 <h4>Terms and conditions</h4>
                 <p>By checking the box below, you declare that you have read and agree with the terms and conditions.</p>
-                <input class="form-check-input" type="checkbox" value="" id="terms">
+                <input class="form-check-input" type="checkbox" value="" id="terms" name="terms" required>
                 <label class="form-check-label" for="terms">
                     I accept the terms and conditions.
                 </label>
