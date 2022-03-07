@@ -2,7 +2,7 @@
     include_once __DIR__.'/../db/pdo.php';
 
     session_start();
-    if (isset($_SESSION['USER'])) {
+    if (!isset($_SESSION['USER'])) {
         echo $_SESSION['USER'];
     }
     // TODO: if user not authenticated, return landing page
@@ -14,6 +14,9 @@
         // registration and authentication
         case '/register':
             require_once __DIR__ . '/../includes/views/authentication/register.php';
+            break;
+        case '/login':
+            require_once __DIR__ . '/../includes/views/authentication/login.php';
             break;
 
         // views
