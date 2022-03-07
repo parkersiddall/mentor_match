@@ -1,5 +1,6 @@
 <?php
-// TODO: add backend logic here
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__."/../../..");
+    $dotenv->load();
 
     $form_error_msg = '';
 
@@ -8,10 +9,62 @@
         if (!str_contains($_POST['email'], '@')) {
             $form_error_msg = 'Invalid email';
         };
-        // check that email does not exist in DB
+
         // check that passwords match
-        // persist user in db
-        // redirect to login page
+        if ($_POST['password'] !== $_POST['confirm_password']) {
+            $form_error_msg = 'Passwords do not match.';
+        }
+
+        // check that email does not exist in DB
+        $sql = "SELECT * FROM user u where u.email = :email;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(
+            ':email' => htmlentities($_POST['email'])
+        ));
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($data) == 0) {
+            // create account
+            $sql = "INSERT INTO user (
+                      email,
+                      password_hash,
+                      school_name,
+                      school_city,
+                      school_state,
+                      school_country,
+                      accept_terms,
+                      approved) 
+                      VALUES (
+                        :email,
+                        :password_hash,
+                        :school_name,
+                        :school_city,
+                        :school_state,
+                        :school_country,
+                        :accept_terms,
+                        :approved
+                        );";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':email' => htmlentities($_POST['email']),
+                ':password_hash' => hash('md5', $_POST['password'].$_ENV['SALT']),
+                ':school_name' => htmlentities($_POST['school_name']),
+                ':school_city' => htmlentities($_POST['school_city']),
+                ':school_state' => htmlentities($_POST['school_state']),
+                ':school_country' => htmlentities($_POST['school_country']),
+                ':accept_terms' => True,
+                ':approved' => True
+            ));
+            $user_id = $pdo->lastInsertId();
+
+            // log user in
+            $_SESSION['USER'] = $user_id;
+
+            // redirect to home
+            header("Location: /");
+        } else {
+            $form_error_msg = 'Unable to create user. Try using a different email address.';
+        }
     }
 ?>
 
@@ -47,7 +100,8 @@
         <hr>
         <?php
             if ($form_error_msg) {
-                echo '<div>';
+
+                echo '<div class="alert alert-danger" role="alert">';
                 echo $form_error_msg;
                 echo '</div>';
             }

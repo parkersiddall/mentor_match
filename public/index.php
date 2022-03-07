@@ -1,7 +1,10 @@
 <?php
     include_once __DIR__.'/../db/pdo.php';
-    session_start();
 
+    session_start();
+    if (isset($_SESSION['USER'])) {
+        echo $_SESSION['USER'];
+    }
     // TODO: if user not authenticated, return landing page
 
     // router
