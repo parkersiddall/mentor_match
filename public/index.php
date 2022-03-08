@@ -16,6 +16,9 @@
             require_once __DIR__ . '/../includes/utilities/middleware/is_not_authenticated.php';
             require_once __DIR__ . '/../includes/views/authentication/login.php';
             break;
+        case '/logout':
+            session_destroy();
+            header("Location: /");
 
         // views
         case '/':
