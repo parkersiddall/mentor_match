@@ -23,11 +23,12 @@ try {
         }
 
         // update DB
-        $sql = "UPDATE match_form SET mentor_app_open=:mentor_app_open, mentee_app_open=:mentee_app_open";
+        $sql = "UPDATE match_form SET mentor_app_open=:mentor_app_open, mentee_app_open=:mentee_app_open where match_form_id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
             ':mentor_app_open' => $request_data['mentorApplicationStatus'] === true,
             ':mentee_app_open' => $request_data['menteeApplicationStatus'] === true,
+            ':id' => htmlentities($_GET['id'])
         ));
 
         echo $json;
