@@ -6,7 +6,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // check that user exists
-        $sql = "SELECT * FROM user u where u.email = :email;";
+        $sql = "SELECT * FROM app_user u where u.email = :email;";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
             ':email' => htmlentities($_POST['email'])

@@ -16,7 +16,7 @@
         }
 
         // check that email does not exist in DB
-        $sql = "SELECT * FROM user u where u.email = :email;";
+        $sql = "SELECT * FROM app_user u where u.email = :email;";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
             ':email' => htmlentities($_POST['email'])
@@ -25,7 +25,7 @@
 
         if (count($data) == 0) {
             // create account
-            $sql = "INSERT INTO user (
+            $sql = "INSERT INTO app_user (
                       email,
                       password_hash,
                       school_name,

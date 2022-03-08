@@ -2,7 +2,7 @@ CREATE DATABASE mentor_match DEFAULT CHARACTER	SET utf8;
 USE mentor_match;
 
 -- table for users
-CREATE TABLE user (
+CREATE TABLE app_user (
     user_id INT NOT NULL AUTO_INCREMENT,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     email TEXT NOT NULL,
@@ -22,6 +22,7 @@ CREATE TABLE user (
 CREATE TABLE match_form (
     match_form_id INT NOT NULL AUTO_INCREMENT,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    creator TEXT NOT NULL,
     title TEXT NOT NULL,
     mentor_desc TEXT NOT NULL,
     mentee_desc TEXT NOT NULL,
@@ -32,7 +33,10 @@ CREATE TABLE match_form (
     collect_email BOOL NOT NULL DEFAULT FALSE,
     collect_phone BOOL NOT NULL DEFAULT FALSE,
     collect_stud_id BOOL NOT NULL DEFAULT FALSE,
-    PRIMARY KEY(match_form_id)
+    PRIMARY KEY(match_form_id),
+    FOREIGN KEY(creator)
+        REFERENCES app_user(user_id)
+        ON DELETE CASCADE
 );
 
 -- table for questions in match forms
