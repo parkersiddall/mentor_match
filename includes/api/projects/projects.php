@@ -92,7 +92,7 @@ try {
             ':collect_email' => $request_data['collectEmail'] === true,
             ':collect_phone' => $request_data['collectPhone'] === true,
             ':collect_stud_id' => $request_data['collectStudentID'] === true,
-            ':creator' => $_SESSION['USER']
+            ':creator' => $_SESSION['USER'] // htmlentities($request_data['creator']
         ));
         $match_form_id = $pdo->lastInsertId();
 

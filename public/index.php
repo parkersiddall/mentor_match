@@ -37,28 +37,34 @@
             break;
         case '/project':
             require_once __DIR__ . '/../includes/utilities/middleware/is_authenticated.php';
+            require_once __DIR__ . '/../includes/utilities/middleware/is_project_creator.php';
             require_once __DIR__ . '/../includes/views/view_applicants.php';
             break;
 
         // api
         case '/api/projects':
             require_once __DIR__ . '/../includes/utilities/middleware/is_authenticated.php';
+            require_once __DIR__ . '/../includes/utilities/middleware/is_project_creator.php';
             require_once __DIR__.'/../includes/api/projects/projects.php';
             break;
         case '/api/projects/app_status':
             require_once __DIR__ . '/../includes/utilities/middleware/is_authenticated.php';
+            require_once __DIR__ . '/../includes/utilities/middleware/is_project_creator.php';
             require_once __DIR__.'/../includes/api/projects/app_status.php';
             break;
         case '/api/applicants':
             require_once __DIR__ . '/../includes/utilities/middleware/is_authenticated.php';
+            require_once __DIR__ . '/../includes/utilities/middleware/is_project_creator.php';  // come back to check DELETE. Postman doesn't like it.
             require_once __DIR__.'/../includes/api/applicants.php';
             break;
         case '/api/responses':
             require_once __DIR__ . '/../includes/utilities/middleware/is_authenticated.php';
+            require_once __DIR__ . '/../includes/utilities/middleware/is_project_creator.php';
             require_once __DIR__.'/../includes/api/responses.php';
             break;
         case '/api/matches':
             require_once __DIR__ . '/../includes/utilities/middleware/is_authenticated.php';
+            require_once __DIR__ . '/../includes/utilities/middleware/is_project_creator.php';
             require_once __DIR__.'/../includes/api/matches.php';
             break;
 
