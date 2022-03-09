@@ -13,7 +13,11 @@ try {
             ));
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
-            $stmt = $pdo->query("SELECT * FROM match_form");
+            $sql = "SELECT * FROM match_form mf where mf.creator = :creator";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':creator' => $_SESSION['USER']
+            ));
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
@@ -73,9 +77,9 @@ try {
 
         // persist data to DB
         $sql = "INSERT INTO match_form (title, mentor_desc, mentee_desc, mentor_app_open, mentee_app_open,
-                    collect_first_name, collect_last_name, collect_email, collect_phone, collect_stud_id
+                    collect_first_name, collect_last_name, collect_email, collect_phone, collect_stud_id, creator
                     ) VALUES (:title, :mentor_desc, :mentee_desc, :mentor_app_open, :mentee_app_open,
-                      :collect_first_name, :collect_last_name, :collect_email, :collect_phone, :collect_stud_id)";
+                      :collect_first_name, :collect_last_name, :collect_email, :collect_phone, :collect_stud_id, :creator)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute(array(
             ':title' => htmlentities($request_data['title']),
@@ -87,7 +91,8 @@ try {
             ':collect_last_name' => $request_data['collectLastName'] === true,
             ':collect_email' => $request_data['collectEmail'] === true,
             ':collect_phone' => $request_data['collectPhone'] === true,
-            ':collect_stud_id' => $request_data['collectStudentID'] === true
+            ':collect_stud_id' => $request_data['collectStudentID'] === true,
+            ':creator' => $_SESSION['USER'] // htmlentities($request_data['creator']
         ));
         $match_form_id = $pdo->lastInsertId();
 
