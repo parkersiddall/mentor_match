@@ -1,0 +1,14 @@
+:root {
+    --barn-red: #780000ff;
+    --carnelian: #c1121fff;
+    --papaya-whip: #fdf0d5ff;
+    --light-whip: #fff9ed;
+    --prussian-blue: #003049ff;
+    --air-superiority-blue: #669bbcff;
+    --regular-text: #465052;
+}
+
+.custom-nav {
+    background-color: var(--prussian-blue) !important;
+    font-family: 'IBM Plex Sans', sans-serif;
+}

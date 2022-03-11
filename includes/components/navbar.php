@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark custom-nav">
     <div class="container-fluid">
         <span class="navbar-brand mb-0 h1"><a href="/" style="text-decoration: none; color: white">Mentor Match</a></span>
         <?php
