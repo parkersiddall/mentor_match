@@ -1,0 +1,29 @@
+:root {
+    --barn-red: #780000ff;
+    --carnelian: #c1121fff;
+    --papaya-whip: #fdf0d5ff;
+    --light-whip: #fff9ed;
+    --prussian-blue: #003049ff;
+    --air-superiority-blue: #669bbcff;
+    --regular-text: #465052;
+}
+
+body {
+    background-color: var(--light-whip);
+}
+
+h4, h5 {
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.project-card {
+    border-radius: 4px;
+    border: 1px solid var(--papaya-whip);
+    background-color: white;
+    box-shadow: 0px 0px 5px var(--papaya-whip);
+    margin: 1px;
+}
+
+.project-card:hover {
+    border: 1px solid var(--prussian-blue);
+}

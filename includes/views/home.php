@@ -1,6 +1,7 @@
 <html>
 <head>
     <?php include __DIR__."/../components/head_content.php" ?>
+    <link rel="stylesheet" href="/assets/css/home_page_authenticated.css">
     <script src="/assets/js/home.js"></script>
     <title>Mentor Match</title>
 </head>
