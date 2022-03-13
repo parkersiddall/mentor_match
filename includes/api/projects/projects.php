@@ -85,8 +85,8 @@ try {
             ':title' => htmlentities($request_data['title']),
             ':mentor_desc' => htmlentities($request_data['mentorDescription']),
             ':mentee_desc' => htmlentities($request_data['menteeDescription']),
-            ':mentor_app_open' => $request_data['mentorApplicationStatus'] === true,
-            ':mentee_app_open' => $request_data['menteeApplicationStatus'] === true,
+            ':mentor_app_open' => $request_data['mentorApplicationStatus'] === 'open' ? 1 : 0,
+            ':mentee_app_open' => $request_data['menteeApplicationStatus'] === 'open' ? 1 : 0,
             ':collect_first_name' => $request_data['collectFirstName'] === true,
             ':collect_last_name' => $request_data['collectLastName'] === true,
             ':collect_email' => $request_data['collectEmail'] === true,
@@ -155,7 +155,7 @@ try {
     }
 } catch (Exception $e) {
     //TODO figure out how to handle PDO exceptions...
-    http_response_code($e->getCode() ? $e->getCode() : "500");
+    http_response_code($e->getCode() ? $e->getCode() : 500);
     echo json_encode($e->getMessage() ? $e->getMessage() : "Internal Server Error");
     die;
 }
