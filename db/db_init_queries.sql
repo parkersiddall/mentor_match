@@ -22,7 +22,7 @@ CREATE TABLE app_user (
 CREATE TABLE match_form (
     match_form_id INT NOT NULL AUTO_INCREMENT,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    creator TEXT NOT NULL,
+    creator INT NOT NUL,
     title TEXT NOT NULL,
     mentor_desc TEXT NOT NULL,
     mentee_desc TEXT NOT NULL,
