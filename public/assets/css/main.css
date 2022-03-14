@@ -18,6 +18,7 @@ body {
 
 p {
     color: var(--regular-text) !important;
+    font-weight: lighter;
 }
 
 .rouded-button {

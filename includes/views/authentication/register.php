@@ -77,16 +77,16 @@
 </head>
 <body>
     <?php include __DIR__."/../../components/navbar.php" ?>
-    <div id="form" class="container mt-3 text center">
-        <h2>
+    <div id="form" class="container mt-3">
+
+    <div class="text-center p-3">
+        <h3>
             Getting started with Mentor Match
-        </h2>
+        </h3>
         <p>
-            To create an account with Mentor Match, begin by filling out the form below.
+            To create an account with Mentor Match, begin by simply filling out the form below.
         </p>
-        <p>
-            Our team will then review your registration and activate your account. You can expect to receive an email notification once your account has been activated. After that, you will be able to log in using the email and password provided during registration.
-        </p>
+    </div>
         <hr>
         <?php
             if ($form_error_msg) {
@@ -98,7 +98,7 @@
         ?>
         <form id="registration-form" method="POST">
             <div class="mb-3">
-                <h4>User credentials</h4>
+                <h5>User credentials</h5>
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" required>
                 <br>
@@ -111,7 +111,7 @@
             </div>
             <hr>
             <div class="mb-3">
-                <h4>School information</h4>
+                <h5>School information</h5>
                 <label for="school_name" class="form-label">School Name</label>
                 <input type="text" class="form-control" id="school_name" name="school_name" required>
                 <br>
@@ -143,15 +143,16 @@
             </div>
             <hr>
             <div>
-                <h4>Terms and conditions</h4>
+                <h5>Terms and conditions</h5>
                 <p>By checking the box below, you declare that you have read and agree with the terms and conditions.</p>
                 <input class="form-check-input" type="checkbox" value="" id="terms" name="terms" required>
                 <label class="form-check-label" for="terms">
                     I accept the terms and conditions.
                 </label>
             </div>
-            <hr>
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <div class="text-center my-5">
+                <button class="btn btn-success" type="submit">Submit</button>
+            </div>
         </form>
     </div>
 </body>
