@@ -1,0 +1,38 @@
+:root {
+    --barn-red: #780000ff;
+    --carnelian: #c1121fff;
+    --papaya-whip: #fdf0d5ff;
+    --light-whip: #fff9ed;
+    --prussian-blue: #003049ff;
+    --air-superiority-blue: #669bbcff;
+    --regular-text: #465052;
+}
+
+html {
+    font-family: 'IBM Plex Sans', sans-serif !important;
+}
+
+body {
+    background-color: var(--light-whip);
+}
+
+.rouded-button {
+    border-radius: 100px !important;
+}
+
+/*OVERWRITE BOOTSTRAP CLASSES*/
+.btn {
+
+}
+.btn-success {
+    background-color: var(--carnelian) !important;
+    border-color: var(--carnelian) !important;
+    font-size: .75rem;
+    padding: .5rem 1rem;
+    text-transform:uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-success:hover {
+    box-shadow: 0px 6px 16px 0px var(--carnelian) !important;
+}

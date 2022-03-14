@@ -7,10 +7,10 @@
 </head>
 <body>
 <?php include __DIR__."/../components/navbar.php" ?>
-<div id="form" class="container mt-3 text center">
+<div id="form" class="container mt-3">
     <div class="row">
-        <div class="col-6">
-            <h4>My Projects</h4>
+        <div class="col-6 projects-title-container">
+            <h4 class="projects-title">My Projects</h4>
         </div>
         <div class="col-6 text-end">
             <a href="/create" class="btn btn-success">
