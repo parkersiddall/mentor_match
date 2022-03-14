@@ -13,6 +13,7 @@
 <html>
 <head>
     <?php include __DIR__."/../components/head_content.php" ?>
+    <link rel="stylesheet" href="/assets/css/view_applicants.css">
     <script src="./assets/js/view_applicants.js"></script>
     <title>Match Form Overview</title>
 </head>
@@ -47,29 +48,29 @@
 
             </div>
         </div>
-        <div class="row justify-content-center py-3">
+        <div class="row justify-content-center quick-stats-row">
             <div class="col-12 text-center m-3">
-                <h5>Quick Stats</h5>
+                <h5 class="quick-stats-title">Quick Stats</h5>
             </div>
-            <div class="col-2 text-center my-auto">
+            <div class="col-3 text-center my-auto">
                 <h5 id="project-mentor-count"></h5>
                 <small>Mentors</small>
             </div>
-            <div class="col-2 text-center my-auto">
+            <div class="col-3 text-center my-auto">
                 <h5 id="project-mentee-count"></h5>
                 <small>Mentees</small>
             </div>
-            <div class="col-2 text-center my-auto">
+            <div class="col-3 text-center my-auto">
                 <h5  id="project-ratio"></h5>
                 <small>Mentee/Mentor Ratio</small>
             </div>
-            <div class="col-2 text-center my-auto">
+            <div class="col-3 text-center my-auto">
                 <h5 id="project-num-matches"></h5>
                 <small>Matches</small>
             </div>
         </div>
         <br>
-        <div class="row">
+        <div class="row table-row">
             <ul class="nav nav-tabs mb-3 nav-fill" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="mentors-tab-button" data-bs-toggle="pill" data-bs-target="#mentors-tab-content" type="button" role="tab" aria-controls="mentors-tab" aria-selected="true">Mentors</button>
@@ -184,7 +185,7 @@
                     </div>
                     <div class="modal-footer">
                         <button id="close-app-status"type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="save-app-status" type="button" class="btn btn-primary">Save changes</button>
+                        <button id="save-app-status" type="button" class="btn btn-success">Save changes</button>
                     </div>
                 </div>
             </div>

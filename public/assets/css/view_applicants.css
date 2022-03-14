@@ -1,0 +1,37 @@
+:root {
+    --barn-red: #780000ff;
+    --carnelian: #c1121fff;
+    --papaya-whip: #fdf0d5ff;
+    --light-whip: #fff9ed;
+    --prussian-blue: #003049ff;
+    --air-superiority-blue: #669bbcff;
+    --regular-text: #465052;
+}
+
+.quick-stats-row {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(73, 80, 87) !important;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.quick-stats-title {
+    text-transform:uppercase;
+    letter-spacing: 1px;
+    color: var(--regular-text);
+    font-size: .8rem;
+}
+
+/*BOOTSTRAP OVERWRITE*/
+.nav-link[aria-selected='false'] {
+    color: var(--barn-red) !important;
+}
+
+.nav-link[aria-selected='true'] {
+    border-bottom: none !important;
+}
+
+.dropdown-item:hover {
+    background-color: var(--papaya-whip);
+}
