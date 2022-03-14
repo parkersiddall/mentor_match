@@ -44,10 +44,14 @@
 <body>
 <?php include __DIR__."/../../components/navbar.php" ?>
 <div id="form" class="container mt-3 text center">
-    <h2>
-        Login
-    </h2>
-    <hr>
+<div class="text-center p-3">
+        <h3>
+            Login
+        </h3>
+        <p>
+            Welcome back, please provide your credentials below.
+        </p>
+    </div>
     <?php
     if ($form_error_msg) {
 
@@ -64,9 +68,9 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required
         </div>
-        <hr>
-        <button class="btn btn-primary" type="submit">Submit</button>
-        <br>
+        <div class="text-center my-5">
+            <button class="btn btn-success" type="submit">Submit</button>
+        </div>
         <br>
         <div class="text-center">
             <p>Don't have an account? <a href="/register">Sign up</a> for free.</p>

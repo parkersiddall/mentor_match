@@ -25,10 +25,15 @@ p {
     border-radius: 100px !important;
 }
 
-/*OVERWRITE BOOTSTRAP CLASSES*/
-.btn {
-
+a {
+    color: var(--barn-red)
 }
+
+a:hover {
+    color: var(--carnelian)
+}
+
+/*OVERWRITE BOOTSTRAP CLASSES*/
 .btn-success {
     background-color: var(--carnelian) !important;
     border-color: var(--carnelian) !important;
