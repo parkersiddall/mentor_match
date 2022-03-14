@@ -16,6 +16,10 @@ body {
     background-color: var(--light-whip);
 }
 
+p {
+    color: var(--regular-text) !important;
+}
+
 .rouded-button {
     border-radius: 100px !important;
 }
@@ -33,6 +37,87 @@ body {
     letter-spacing: 1px;
 }
 
+
 .btn-success:hover {
     box-shadow: 0px 6px 16px 0px var(--carnelian) !important;
+    transition: .3s;
+}
+
+.btn-primary {
+    background-color: var(--prussian-blue) !important;
+    border-color: var(--prussian-blue) !important;
+    font-size: .75rem;
+    padding: .5rem 1rem;
+    text-transform:uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    background-color: var(--air-superiority-blue) !important;
+    border-color: var(--air-superiority-blue) !important;
+}
+
+.btn-secondary {
+    background-color: var(--regular-text) !important;
+    border-color: var(--regular-text) !important;
+    color: white;
+    font-size: .75rem;
+    padding: .5rem 1rem;
+    text-transform:uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-secondary:hover {
+    background-color: lightgray !important;
+    border-color: lightgray !important;
+}
+
+.btn-outline-primary {
+    color: var(--prussian-blue);
+    border-color: var(--prussian-blue);
+    background-color: white;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--prussian-blue);
+    border-color: var(--prussian-blue);
+}
+
+
+.input-group-text {
+    background-color: white;
+    border-color: var(--prussian-blue);
+    text-transform:uppercase;
+    font-size: .5rem !important;
+}
+
+input, select, textarea {
+    border: none !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 1px solid var(--prussian-blue) !important;
+    box-shadow: none !important;
+}
+
+button:focus {
+    box-shadow: none !important;
+}
+
+input[type='checkbox']:checked {
+    background-color: var(--prussian-blue) !important;
+    border-color: var(--prussian-blue) !important;
+}
+
+.card {
+    border: none !important;
+}
+
+.card-header {
+    background-color: var(--prussian-blue) !important;
+    color: white;
+}
+
+.card-body {
+    background-color: var(--papaya-whip) !important;
 }

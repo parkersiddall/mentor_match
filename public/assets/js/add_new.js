@@ -79,7 +79,7 @@ $(document).ready(function() {
                 <b>
                     Question
                 </b>
-                <button type="button" class="remove-question btn btn-sm btn-outline-danger float-end">
+                <button type="button" class="remove-question btn btn-sm btn-outline-light float-end">
                     <i class="bi bi-trash"></i>
                 </button>
             </div>
@@ -88,7 +88,7 @@ $(document).ready(function() {
                 <div class="option-container">
                     <div class="option input-group input-group-sm mb-2">
                         <span class="input-group-text">Option</span>
-                        <button class="delete-option-button btn btn-outline-danger" type="button">
+                        <button class="delete-option-button btn btn-outline-primary" type="button">
                             <i class="bi bi-trash"></i>
                         </button>
                         <input type="text" class="option-name form-control" required>
@@ -106,7 +106,7 @@ $(document).ready(function() {
         newOption.classList.add("option", "input-group", "input-group-sm", "mb-2")
         newOption.innerHTML = `
             <span class="input-group-text">Option</span>
-            <button class="delete-option-button btn btn-outline-danger" type="button">
+            <button class="delete-option-button btn btn-outline-primary" type="button">
                 <i class="bi bi-trash"></i>
             </button>
             <input type="text" class="option-name form-control" required>

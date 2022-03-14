@@ -1,6 +1,7 @@
 <html>
 <head>
     <?php include __DIR__."/../components/head_content.php" ?>
+    <link rel="stylesheet" href="/assets/css/add_new.css">
     <script src="./assets/js/add_new.js"></script>
     <title>Mentor Match</title>
 </head>
@@ -66,7 +67,7 @@
                         <b>
                             Question
                         </b>
-                        <button type="button" class="remove-question btn btn-sm btn-outline-danger float-end">
+                        <button type="button" class="remove-question btn btn-sm btn-outline-light float-end">
                             <i class="bi bi-trash"></i>
                         </button>
                     </div>
@@ -75,7 +76,7 @@
                         <div class="option-container">
                             <div class="option input-group input-group-sm mb-2">
                                 <span class="input-group-text">Option</span>
-                                <button class="delete-option-button btn btn-outline-danger" type="button">
+                                <button class="delete-option-button btn btn-outline-primary" type="button">
                                     <i class="bi bi-trash"></i>
                                 </button>
                                 <input type="text" class="option-name form-control" required>
@@ -89,7 +90,9 @@
                 Add question
             </button>
         </div>
-        <button id="submit-button" class="btn btn-success btn-lg mb-3" type="submit">Submit</button>
+        <div class="text-center">
+            <button id="submit-button" class="btn btn-success btn-lg mb-3" type="submit">Submit</button>
+        </div>
     </form>
 </div>
 </body>
